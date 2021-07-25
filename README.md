@@ -1,18 +1,18 @@
 # ETS2Discord
-#概要
+# 概要
 ETS2からETS2 TelemetryServerを使用してデータを取得し、Discordに情報を表示するツールです。
 ツール名:ETS2DiscordRichPresence.exe
 制作者:焼きすぎた鮭 Twitter:@_yakisugita_
 
-#利用に関して
+# 利用に関して
 ツールの使用は自己責任でお願いします。
 二次配布・改変やその配布はOKです。
 
-#動作環境
+# 動作環境
 .NET Framework 4.7.2で動作します。
 
-#使い方
-##導入
+# 使い方
+## 導入
 ETS2 TelemetryServerをダウンロード ※ETS2 64bitのみ対応
 https://github.com/mike-koch/ets2-telemetry-server
 「Code」ボタン->「Download ZIP」
@@ -28,6 +28,6 @@ exeファイルを起動させたら「設定」で設定ウィンドウを開�
 ETS2をプレイしてみて、実際に表示されるか試してみて下さい。
 ※セーブデータを読み込んで、トラックに乗る(道路などが読み込まれる)まではDiscordに表示されません
 
-#更新履歴
+# 更新履歴
 2021/07/25
 公開
