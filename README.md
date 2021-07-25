@@ -2,7 +2,7 @@
 # 概要
 ETS2からETS2 TelemetryServerを使用してデータを取得し、Discordに情報を表示するツールです。
 ツール名:ETS2DiscordRichPresence.exe
-制作者:焼きすぎた鮭 Twitter:@_yakisugita_
+制作者:焼きすぎた鮭 Twitter:@\_yakisugita_
 
 # 利用に関して
 ツールの使用は自己責任でお願いします。
