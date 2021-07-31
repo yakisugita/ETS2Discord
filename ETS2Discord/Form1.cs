@@ -50,6 +50,7 @@ namespace ETS2Discord
 			Settings.free_state = ini.GetString("ets2discord", "free_state", "0");
 			Settings.job_details = ini.GetString("ets2discord", "job_details", "0");
 			Settings.job_state = ini.GetString("ets2discord", "job_state", "0");
+			Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
 			timer1.Enabled = true; // タイマーを有効化
 			Initialize(); // 最初にこれを入れないとETS2起動中に実行したときにエラーでる
 		}
@@ -159,6 +160,7 @@ namespace ETS2Discord
 						{
 							Initialize();
 							discordrpc = true;
+							Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
 						}
 						// DiscordRPCの表示を更新
 						string rpc_details;
@@ -257,6 +259,7 @@ namespace ETS2Discord
 						{
 							Details = rpc_details,
 							State = rpc_state,
+							Timestamps = Settings.timestamp,
 							Assets = new Assets()
 							{
 								LargeImageKey = "image_large",
@@ -323,7 +326,8 @@ namespace ETS2Discord
 					var response = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP"); // GET
 					if (response.Content.ReadAsStringAsync().Result != Settings.version)
 					{
-						MessageBox.Show("新しいバージョンが見つかりました。\nニコ動の説明欄やTwitterにURLがあるかも。\nTwitter:@_yakisugita_\nニコ動:https://www.nicovideo.jp/user/93815435", "新バージョン", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						string title = "現在バージョン:" + Settings.version + " 新バージョン:" + response.Content.ReadAsStringAsync().Result;
+						MessageBox.Show("新しいバージョンが見つかりました。\nたぶん動画説明欄にURLがあります。\nTwitter:@_yakisugita_\nニコ動紹介動画ID:sm39083509", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
 					} else if (click_btn)
                     {
 						// 手動の更新確認
@@ -335,7 +339,7 @@ namespace ETS2Discord
             {
 				if (click_btn)
                 {
-					MessageBox.Show("何らかの原因で確認に失敗しました。", "新バージョン", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					MessageBox.Show("何らかの原因で確認に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
 		}
@@ -386,6 +390,7 @@ namespace ETS2Discord
 	{
 		// 設定ファイルの読み込みなど
 		public static string version { get; set; }
+		public static Timestamps timestamp { get; set; }
 
 		public static string X_button_move { get; set; }
 		public static string Telemetry_url { get; set; }

@@ -243,9 +243,9 @@ namespace ETS2Discord
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(5, 6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(231, 12);
+            this.label3.Size = new System.Drawing.Size(237, 12);
             this.label3.TabIndex = 0;
-            this.label3.Text = "ETS2 Telemetry Server - Tlemetry API URL";
+            this.label3.Text = "ETS2 Telemetry Server - Telemetry API URL";
             // 
             // button_cancel
             // 
