@@ -42,6 +42,8 @@ namespace ETS2Discord
             this.job_details_combo = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage_other = new System.Windows.Forms.TabPage();
+            this.truckersmpid = new System.Windows.Forms.NumericUpDown();
+            this.truckersmp = new System.Windows.Forms.CheckBox();
             this.exit_radioButton = new System.Windows.Forms.RadioButton();
             this.min_radioButton = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
@@ -49,10 +51,13 @@ namespace ETS2Discord
             this.label3 = new System.Windows.Forms.Label();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage_normal.SuspendLayout();
             this.tabPage_job.SuspendLayout();
             this.tabPage_other.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.truckersmpid)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -63,7 +68,7 @@ namespace ETS2Discord
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(347, 156);
+            this.tabControl1.Size = new System.Drawing.Size(347, 206);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage_normal
@@ -75,7 +80,7 @@ namespace ETS2Discord
             this.tabPage_normal.Location = new System.Drawing.Point(4, 22);
             this.tabPage_normal.Name = "tabPage_normal";
             this.tabPage_normal.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_normal.Size = new System.Drawing.Size(339, 130);
+            this.tabPage_normal.Size = new System.Drawing.Size(339, 180);
             this.tabPage_normal.TabIndex = 0;
             this.tabPage_normal.Text = "表示(通常時)";
             this.tabPage_normal.UseVisualStyleBackColor = true;
@@ -132,7 +137,7 @@ namespace ETS2Discord
             this.tabPage_job.Location = new System.Drawing.Point(4, 22);
             this.tabPage_job.Name = "tabPage_job";
             this.tabPage_job.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_job.Size = new System.Drawing.Size(339, 130);
+            this.tabPage_job.Size = new System.Drawing.Size(339, 180);
             this.tabPage_job.TabIndex = 1;
             this.tabPage_job.Text = "表示(配送時)";
             this.tabPage_job.UseVisualStyleBackColor = true;
@@ -188,6 +193,10 @@ namespace ETS2Discord
             // 
             // tabPage_other
             // 
+            this.tabPage_other.Controls.Add(this.button1);
+            this.tabPage_other.Controls.Add(this.label7);
+            this.tabPage_other.Controls.Add(this.truckersmpid);
+            this.tabPage_other.Controls.Add(this.truckersmp);
             this.tabPage_other.Controls.Add(this.exit_radioButton);
             this.tabPage_other.Controls.Add(this.min_radioButton);
             this.tabPage_other.Controls.Add(this.label4);
@@ -195,15 +204,41 @@ namespace ETS2Discord
             this.tabPage_other.Controls.Add(this.label3);
             this.tabPage_other.Location = new System.Drawing.Point(4, 22);
             this.tabPage_other.Name = "tabPage_other";
-            this.tabPage_other.Size = new System.Drawing.Size(339, 130);
+            this.tabPage_other.Size = new System.Drawing.Size(339, 180);
             this.tabPage_other.TabIndex = 2;
             this.tabPage_other.Text = "その他の設定";
             this.tabPage_other.UseVisualStyleBackColor = true;
             // 
+            // truckersmpid
+            // 
+            this.truckersmpid.Location = new System.Drawing.Point(98, 132);
+            this.truckersmpid.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.truckersmpid.Name = "truckersmpid";
+            this.truckersmpid.ReadOnly = true;
+            this.truckersmpid.Size = new System.Drawing.Size(70, 19);
+            this.truckersmpid.TabIndex = 6;
+            this.truckersmpid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.truckersmpid.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            // 
+            // truckersmp
+            // 
+            this.truckersmp.AutoSize = true;
+            this.truckersmp.Location = new System.Drawing.Point(7, 115);
+            this.truckersmp.Name = "truckersmp";
+            this.truckersmp.Size = new System.Drawing.Size(193, 16);
+            this.truckersmp.TabIndex = 5;
+            this.truckersmp.Text = "TruckersMP起動中に表示を変える";
+            this.truckersmp.UseVisualStyleBackColor = true;
+            this.truckersmp.CheckedChanged += new System.EventHandler(this.truckersmp_CheckedChanged);
+            // 
             // exit_radioButton
             // 
             this.exit_radioButton.AutoSize = true;
-            this.exit_radioButton.Location = new System.Drawing.Point(7, 95);
+            this.exit_radioButton.Location = new System.Drawing.Point(7, 85);
             this.exit_radioButton.Name = "exit_radioButton";
             this.exit_radioButton.Size = new System.Drawing.Size(81, 16);
             this.exit_radioButton.TabIndex = 4;
@@ -213,26 +248,26 @@ namespace ETS2Discord
             // min_radioButton
             // 
             this.min_radioButton.AutoSize = true;
-            this.min_radioButton.Location = new System.Drawing.Point(7, 76);
+            this.min_radioButton.Location = new System.Drawing.Point(7, 66);
             this.min_radioButton.Name = "min_radioButton";
-            this.min_radioButton.Size = new System.Drawing.Size(59, 16);
+            this.min_radioButton.Size = new System.Drawing.Size(113, 16);
             this.min_radioButton.TabIndex = 3;
-            this.min_radioButton.Text = "最小化";
+            this.min_radioButton.Text = "タスクバーに最小化";
             this.min_radioButton.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(5, 61);
+            this.label4.Location = new System.Drawing.Point(5, 51);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 12);
+            this.label4.Size = new System.Drawing.Size(114, 12);
             this.label4.TabIndex = 2;
-            this.label4.Text = "アプリを閉じたときの動作";
+            this.label4.Text = "xボタンクリック時の動作";
             // 
             // api_url
             // 
             this.api_url.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.api_url.Location = new System.Drawing.Point(5, 21);
+            this.api_url.Location = new System.Drawing.Point(7, 21);
             this.api_url.Name = "api_url";
             this.api_url.Size = new System.Drawing.Size(305, 19);
             this.api_url.TabIndex = 1;
@@ -249,7 +284,7 @@ namespace ETS2Discord
             // 
             // button_cancel
             // 
-            this.button_cancel.Location = new System.Drawing.Point(280, 174);
+            this.button_cancel.Location = new System.Drawing.Point(280, 224);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 2;
@@ -259,7 +294,7 @@ namespace ETS2Discord
             // 
             // button_ok
             // 
-            this.button_ok.Location = new System.Drawing.Point(180, 174);
+            this.button_ok.Location = new System.Drawing.Point(180, 224);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
             this.button_ok.TabIndex = 3;
@@ -267,11 +302,30 @@ namespace ETS2Discord
             this.button_ok.UseVisualStyleBackColor = true;
             this.button_ok.Click += new System.EventHandler(this.button_ok_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(5, 134);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(87, 12);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "TruckersMP ID :";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(174, 129);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "確認方法";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 209);
+            this.ClientSize = new System.Drawing.Size(373, 259);
             this.Controls.Add(this.button_ok);
             this.Controls.Add(this.button_cancel);
             this.Controls.Add(this.tabControl1);
@@ -285,6 +339,7 @@ namespace ETS2Discord
             this.tabPage_job.PerformLayout();
             this.tabPage_other.ResumeLayout(false);
             this.tabPage_other.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.truckersmpid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -310,5 +365,9 @@ namespace ETS2Discord
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox job_state_combo;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown truckersmpid;
+        private System.Windows.Forms.CheckBox truckersmp;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button1;
     }
 }

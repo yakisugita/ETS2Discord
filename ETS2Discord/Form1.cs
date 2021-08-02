@@ -27,13 +27,6 @@ namespace ETS2Discord
 				if (ini_result == DialogResult.OK)
 				{
 					System.IO.File.Create("./ets2discord.ini");
-					// iniファイルの初期設定
-					ini.WriteString("ets2discord", "api_url", "http://192.168.56.1:25555/api/ets2/telemetry");
-					ini.WriteString("ets2discord", "x_button_move", "minimum");
-					ini.WriteString("ets2discord", "free_details", "0");
-					ini.WriteString("ets2discord", "free_state", "0");
-					ini.WriteString("ets2discord", "job_details", "0");
-					ini.WriteString("ets2discord", "job_state", "0");
 				}
 				else if (ini_result == DialogResult.Cancel)
 				{
@@ -50,6 +43,9 @@ namespace ETS2Discord
 			Settings.free_state = ini.GetString("ets2discord", "free_state", "0");
 			Settings.job_details = ini.GetString("ets2discord", "job_details", "0");
 			Settings.job_state = ini.GetString("ets2discord", "job_state", "0");
+			Settings.tmp_change = ini.GetString("ets2discord", "tmp_change", "false");
+			Settings.tmp_id = ini.GetString("ets2discord", "tmp_id", "0");
+
 			Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
 			timer1.Enabled = true; // タイマーを有効化
 			Initialize(); // 最初にこれを入れないとETS2起動中に実行したときにエラーでる
@@ -394,11 +390,13 @@ namespace ETS2Discord
 
 		public static string X_button_move { get; set; }
 		public static string Telemetry_url { get; set; }
-
+		
 		public static string free_details { get; set; }
 		public static string free_state { get; set; }
 		public static string job_details { get; set; }
 		public static string job_state { get; set; }
+		public static string tmp_change { get; set; }
+		public static string tmp_id { get; set; }
 	}
 }
 
