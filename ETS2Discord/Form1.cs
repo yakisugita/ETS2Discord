@@ -253,7 +253,7 @@ namespace ETS2Discord
 									break;
                             }
 						}
-						if (Settings.is_login && Settings.tmp_change == "true")
+						if (Settings.is_login && Settings.tmp_change == "True")
                         {
 							client.SetPresence(new RichPresence()
 							{
