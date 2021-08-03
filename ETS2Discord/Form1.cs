@@ -45,9 +45,11 @@ namespace ETS2Discord
 			Settings.job_state = ini.GetString("ets2discord", "job_state", "0");
 			Settings.tmp_change = ini.GetString("ets2discord", "tmp_change", "false");
 			Settings.tmp_id = ini.GetString("ets2discord", "tmp_id", "0");
+			Settings.is_login = false;
 
 			Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
 			timer1.Enabled = true; // タイマーを有効化
+			mptimer.Enabled = true;
 			Initialize(); // 最初にこれを入れないとETS2起動中に実行したときにエラーでる
 		}
 
@@ -86,8 +88,8 @@ namespace ETS2Discord
 			//Call this as many times as you want and anywhere in your code.
 			client.SetPresence(new RichPresence()
 			{
-				Details = "ETS2をプレイ中",
-				State = "読み込み中...",
+				Details = "ETS2DRP起動中...",
+				State = "",
 				Assets = new Assets()
 				{
 					LargeImageKey = "image_large",
@@ -251,18 +253,35 @@ namespace ETS2Discord
 									break;
                             }
 						}
-						client.SetPresence(new RichPresence()
-						{
-							Details = rpc_details,
-							State = rpc_state,
-							Timestamps = Settings.timestamp,
-							Assets = new Assets()
+						if (Settings.is_login)
+                        {
+							client.SetPresence(new RichPresence()
 							{
-								LargeImageKey = "image_large",
-								LargeImageText = "Lachee's Discord IPC Library",
-								SmallImageKey = "image_small"
-							}
-						});
+								Details = Settings.tmp_details,
+								State = rpc_details,
+								Timestamps = Settings.timestamp,
+								Assets = new Assets()
+								{
+									LargeImageKey = "image_large",
+									LargeImageText = "Lachee's Discord IPC Library",
+									SmallImageKey = "image_small"
+								}
+							});
+						} else
+                        {
+							client.SetPresence(new RichPresence()
+							{
+								Details = rpc_details,
+								State = rpc_state,
+								Timestamps = Settings.timestamp,
+								Assets = new Assets()
+								{
+									LargeImageKey = "image_large",
+									LargeImageText = "Lachee's Discord IPC Library",
+									SmallImageKey = "image_small"
+								}
+							});
+						}
 					}
 					else
 					{
@@ -344,6 +363,46 @@ namespace ETS2Discord
         {
 			VersionCheck(true);
         }
+
+        private async void mptimer_Tick(object sender, EventArgs e)
+        {
+			try
+			{
+                if (discordrpc)
+                {
+					using (var httpclient = new HttpClient())
+					{
+						var response = await httpclient.GetAsync("https://api.truckyapp.com/v3/map/online?playerID=" + Settings.tmp_id); // GET
+						JObject response_json = JObject.Parse(response.Content.ReadAsStringAsync().Result); // 取得した情報をjsonオブジェクトに変換
+
+						if ((bool)response_json["response"]["online"])
+						{
+							Settings.is_login = true;
+							string servername = response_json["response"]["serverDetails"]["name"].ToString();
+							string id = response_json["response"]["p_id"].ToString();
+							string location;
+							if (response_json["response"]["location"]["poi"]["type"].ToString() == "city")
+							{
+								location = response_json["response"]["location"]["poi"]["realName"].ToString() + "市内";
+							}
+							else
+							{
+								location = response_json["response"]["location"]["poi"]["realName"].ToString() + "付近";
+
+							}
+							Settings.tmp_details = "鯖:" + servername + " | ID:" + id + " | " + location;
+						}
+						else
+						{
+							Settings.is_login = false;
+						}
+					}
+				}
+			}
+			catch (Exception)
+			{
+			}
+		}
     }
 
 
@@ -397,6 +456,8 @@ namespace ETS2Discord
 		public static string job_state { get; set; }
 		public static string tmp_change { get; set; }
 		public static string tmp_id { get; set; }
+		public static string tmp_details { get; set; }
+		public static bool is_login { get; set; }
 	}
 }
 

@@ -36,9 +36,10 @@ namespace ETS2Discord
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.SettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.VersionCheckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.status_label = new System.Windows.Forms.Label();
-            this.VersionCheckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mptimer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -83,6 +84,13 @@ namespace ETS2Discord
             this.SettingsToolStripMenuItem.Text = "設定";
             this.SettingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
+            // VersionCheckToolStripMenuItem
+            // 
+            this.VersionCheckToolStripMenuItem.Name = "VersionCheckToolStripMenuItem";
+            this.VersionCheckToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.VersionCheckToolStripMenuItem.Text = "更新を確認";
+            this.VersionCheckToolStripMenuItem.Click += new System.EventHandler(this.VersionCheckToolStripMenuItem_Click);
+            // 
             // timer1
             // 
             this.timer1.Interval = 1000;
@@ -97,12 +105,10 @@ namespace ETS2Discord
             this.status_label.TabIndex = 2;
             this.status_label.Text = "ステータス";
             // 
-            // VersionCheckToolStripMenuItem
+            // mptimer
             // 
-            this.VersionCheckToolStripMenuItem.Name = "VersionCheckToolStripMenuItem";
-            this.VersionCheckToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
-            this.VersionCheckToolStripMenuItem.Text = "更新を確認";
-            this.VersionCheckToolStripMenuItem.Click += new System.EventHandler(this.VersionCheckToolStripMenuItem_Click);
+            this.mptimer.Interval = 10000;
+            this.mptimer.Tick += new System.EventHandler(this.mptimer_Tick);
             // 
             // Form1
             // 
@@ -134,6 +140,7 @@ namespace ETS2Discord
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem VersionCheckToolStripMenuItem;
+        private System.Windows.Forms.Timer mptimer;
     }
 }
 
