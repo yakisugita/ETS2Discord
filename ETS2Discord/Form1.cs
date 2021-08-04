@@ -6,6 +6,7 @@ using DiscordRPC;
 using DiscordRPC.Logging;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace ETS2Discord
 {
@@ -43,7 +44,7 @@ namespace ETS2Discord
 			Settings.free_state = ini.GetString("ets2discord", "free_state", "0");
 			Settings.job_details = ini.GetString("ets2discord", "job_details", "0");
 			Settings.job_state = ini.GetString("ets2discord", "job_state", "0");
-			Settings.tmp_change = ini.GetString("ets2discord", "tmp_change", "false");
+			Settings.tmp_mode = ini.GetString("ets2discord", "tmp_mode", "false");
 			Settings.tmp_id = ini.GetString("ets2discord", "tmp_id", "0");
 			Settings.is_login = false;
 
@@ -253,7 +254,7 @@ namespace ETS2Discord
 									break;
                             }
 						}
-						if (Settings.is_login && Settings.tmp_change == "True")
+						if (Settings.is_login && Settings.tmp_mode == "True")
                         {
 							client.SetPresence(new RichPresence()
 							{
@@ -262,8 +263,8 @@ namespace ETS2Discord
 								Timestamps = Settings.timestamp,
 								Assets = new Assets()
 								{
-									LargeImageKey = "image_large",
-									LargeImageText = "Lachee's Discord IPC Library",
+									LargeImageKey = "ets2",
+									LargeImageText = "Euro Truck Simulator 2",
 									SmallImageKey = "image_small"
 								}
 							});
@@ -276,8 +277,8 @@ namespace ETS2Discord
 								Timestamps = Settings.timestamp,
 								Assets = new Assets()
 								{
-									LargeImageKey = "image_large",
-									LargeImageText = "Lachee's Discord IPC Library",
+									LargeImageKey = "ets2",
+									LargeImageText = "Euro Truck Simulator 2",
 									SmallImageKey = "image_small"
 								}
 							});
@@ -341,8 +342,24 @@ namespace ETS2Discord
 					var response = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP"); // GET
 					if (response.Content.ReadAsStringAsync().Result != Settings.version)
 					{
-						string title = "現在バージョン:" + Settings.version + " 新バージョン:" + response.Content.ReadAsStringAsync().Result;
-						MessageBox.Show("新しいバージョンが見つかりました。\nたぶん動画説明欄にURLがあります。\nTwitter:@_yakisugita_\nニコ動紹介動画ID:sm39083509", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+						string title = "現在のバージョン:" + Settings.version;
+						DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\nダウンロードしますか?(ブラウザが開きます)", title, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+						if (result == DialogResult.OK)
+                        {
+							var response2 = await httpclient.GetAsync("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_v" + response.Content.ReadAsStringAsync().Result + ".zip");
+							if (response.StatusCode != HttpStatusCode.OK)
+							{
+								//200 OK意外
+								MessageBox.Show("ファイルが無いようです。\nhttps://yakijake.net/versions/ETS2DRP/ \nで手動でダウンロードできます。", "エラー", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+							} else
+                            {
+								// ブラウザで開く
+								System.Diagnostics.Process.Start("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_v" + response.Content.ReadAsStringAsync().Result + ".zip");
+							}
+						} else
+                        {
+							MessageBox.Show("https://yakijake.net/versions/ETS2DRP/ \nここでダウンロードできます", "お知らせ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						}
 					} else if (click_btn)
                     {
 						// 手動の更新確認
@@ -354,7 +371,7 @@ namespace ETS2Discord
             {
 				if (click_btn)
                 {
-					MessageBox.Show("何らかの原因で確認に失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show("何らかの原因で確認/ダウンロードに失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
 		}
@@ -384,6 +401,10 @@ namespace ETS2Discord
 							if (response_json["response"]["location"]["poi"]["type"].ToString() == "city")
 							{
 								location = response_json["response"]["location"]["poi"]["realName"].ToString() + "市内";
+							}
+							else if (response_json["response"]["location"]["area"].ToString() == "true")
+                            {
+								location = response_json["response"]["location"]["poi"]["realName"].ToString() + "を走行中";
 							}
 							else
 							{
@@ -454,7 +475,7 @@ namespace ETS2Discord
 		public static string free_state { get; set; }
 		public static string job_details { get; set; }
 		public static string job_state { get; set; }
-		public static string tmp_change { get; set; }
+		public static string tmp_mode { get; set; }
 		public static string tmp_id { get; set; }
 		public static string tmp_details { get; set; }
 		public static bool is_login { get; set; }

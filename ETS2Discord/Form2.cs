@@ -13,7 +13,7 @@ namespace ETS2Discord
 
             // 設定を読み込む
             api_url.Text = Settings.Telemetry_url;
-            truckersmp.Checked = bool.Parse(Settings.tmp_change);
+            truckersmp.Checked = bool.Parse(Settings.tmp_mode);
             truckersmpid.ReadOnly = !truckersmp.Checked;
             truckersmpid.Value = int.Parse(Settings.tmp_id);
             free_details_combo.SelectedIndex = int.Parse(Settings.free_details);
@@ -37,7 +37,7 @@ namespace ETS2Discord
                 // 設定を上書き保存
                 var ini = new IniFile(System.IO.Directory.GetCurrentDirectory() + @"\ets2discord.ini");
                 ini.WriteString("ets2discord", "api_url", api_url.Text);
-                ini.WriteString("ets2discord", "tmp_change", truckersmp.Checked.ToString());
+                ini.WriteString("ets2discord", "tmp_mode", truckersmp.Checked.ToString());
                 ini.WriteString("ets2discord", "tmp_id", truckersmpid.Value.ToString());
                 ini.WriteString("ets2discord", "free_details", free_details_combo.SelectedIndex.ToString());
                 ini.WriteString("ets2discord", "free_state", free_state_combo.SelectedIndex.ToString());
