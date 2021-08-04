@@ -402,7 +402,7 @@ namespace ETS2Discord
 							{
 								location = response_json["response"]["location"]["poi"]["realName"].ToString() + "市内";
 							}
-							else if (response_json["response"]["location"]["area"].ToString() == "true")
+							else if ((bool)response_json["response"]["location"]["area"])
                             {
 								location = response_json["response"]["location"]["poi"]["realName"].ToString() + "を走行中";
 							}
