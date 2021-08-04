@@ -73,7 +73,7 @@ namespace ETS2Discord
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("TMPにログインした状態で\nhttps://truckersmp.com/profile\nにアクセスしてください。OKを押すと開きます", "ヘルプ", MessageBoxButtons.OKCancel);
+            DialogResult result = MessageBox.Show("TMPにログインした状態で\nhttps://truckersmp.com/profile\nにアクセスしてください。OKを押すとブラウザで開きます", "ヘルプ", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
                 System.Diagnostics.Process.Start("https://truckersmp.com/profile");
