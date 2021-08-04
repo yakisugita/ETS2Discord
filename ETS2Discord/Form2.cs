@@ -31,7 +31,7 @@ namespace ETS2Discord
 
         private void button_ok_Click(object sender, EventArgs e)
         {
-            DialogResult ini_result = MessageBox.Show("設定を上書き保存します。\n一部の設定は次回起動時に適用されます。", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            DialogResult ini_result = MessageBox.Show("設定を上書き保存します。\nその他の設定は次回起動時に適用されます。", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             if (ini_result == DialogResult.OK)
             {
                 // 設定を上書き保存
