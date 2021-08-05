@@ -66,7 +66,14 @@ namespace ETS2Discord
 			NOTE: 	If you are using Unity3D, you must use the full constructor and define
 					 the pipe connection.
 			*/
-			client = new DiscordRpcClient("826286647859347497");
+			if (Settings.game == "ATS")
+            {
+				client = new DiscordRpcClient("872733914622459964");
+			}
+			else
+            {
+				client = new DiscordRpcClient("826286647859347497");
+			}
 
 			//Set the logger
 			client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
@@ -152,6 +159,16 @@ namespace ETS2Discord
 					var response = await httpclient.GetAsync(Settings.Telemetry_url); // GET
 					JObject response_json = JObject.Parse(response.Content.ReadAsStringAsync().Result); // 取得した情報をjsonオブジェクトに変換
 																										//MessageBox.Show(response_json["game"]["connected"].ToString(), "確認");
+
+					// ETS2/ATS
+					if (response_json["game"]["gameName"].ToString() == "ATS")
+                    {
+						Settings.game = "ATS";
+                    } else
+                    {
+						Settings.game = "ETS2";
+                    }
+
 					if ((bool)response_json["game"]["connected"])
 					{
 						status_label.Text = "ゲーム：実行中";
@@ -479,6 +496,7 @@ namespace ETS2Discord
 		public static string tmp_id { get; set; }
 		public static string tmp_details { get; set; }
 		public static bool is_login { get; set; }
+		public static string game { get; set; }
 	}
 }
 
