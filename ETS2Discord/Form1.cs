@@ -167,16 +167,16 @@ namespace ETS2Discord
 						if(Settings.game == "ETS2")
                         {
 							Settings.game = "ATS";
-							Initialize();
 							Deinitialize();
+							Initialize();
 						}
                     } else
                     {
 						if(Settings.game == "ATS")
                         {
 							Settings.game = "ETS2";
-							Initialize();
 							Deinitialize();
+							Initialize();
 						}
                     }
 
