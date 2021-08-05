@@ -12,7 +12,7 @@ namespace ETS2Discord
 {
 	public partial class Form1 : Form
 	{
-		public Form1()
+        public Form1()
 		{
 			InitializeComponent();
 			// バージョンチェック
@@ -24,12 +24,12 @@ namespace ETS2Discord
 			if (!System.IO.File.Exists(fileName))
 			{
 				// iniファイルが無かったら作成
-				DialogResult ini_result = MessageBox.Show("設定ファイルが見つかりません。\n新しく作成します。", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+				DialogResult ini_result = MessageBox.Show("設定ファイルが見つかりません。\n初期設定用のファイルを使用してください。", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 				if (ini_result == DialogResult.OK)
 				{
 					System.IO.File.Create("./ets2discord.ini");
 				}
-				else if (ini_result == DialogResult.Cancel)
+				else
 				{
 					// 終了する
 					Settings.X_button_move = "exit";
