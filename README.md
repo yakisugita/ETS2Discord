@@ -16,33 +16,28 @@ ETS2からETS2 TelemetryServerを使用してデータを取得し、Discordに�
 
 ## 使い方
 ### 導入
-ETS2 TelemetryServerをダウンロード ※ETS2 64bitのみ対応
+ツールのzipファイルをダウンロード・解凍
 
-https://github.com/mike-koch/ets2-telemetry-server
+https://yakijake.net/versions/ETS2DRP/
 
-「Code」ボタン->「Download ZIP」
+まずETS2DRP_initial.exeを起動してください
 
-解凍して、serverフォルダのEts2Telemetry.exeを起動
+画面の指示に従ってETS2TelemetryServerを導入してください。
 
-右下の「install」をクリックしてインストール
-
-「Telemetry API URL」をコピーかメモしておく
-
-本ツールのzipファイルをダウンロード・解凍
-
-https://drive.google.com/file/d/1qrlyIlAWkCERWd41EK31ptJ_8K-BSlzj/view?usp=sharing
-
-exeファイルを起動させたら「設定」で設定ウィンドウを開き、「その他の設定」 Telemetry API URLにメモったURLを貼り付けか入力
-
-※ウィンドウが表示されない場合はタスクバーの「ETS2」のアイコンをダブルクリック
-
-設定ウィンドウの「OK」ボタンを押して、タスクバーのアイコンを右クリックして終了させてまた起動
-
+導入が済んだら、「Telemetry API URLを入力してください」のとこの下に、ETS2TSに表示されているAPI URLを入力してください。コピペでOK
+それが終わったら本体を起動してください。
 
 ETS2をプレイしてみて、実際に表示されるか試してみて下さい。
 ※セーブデータを読み込んで、トラックに乗る(道路などが読み込まれる)まではDiscordに表示されません
 
+## TruckersMPの表示について
+Trucky APIを使用して情報を取得しています。
+TruckersMPのゲーム内設定で、「general」タブの「Discord Rich Presence」のチェックを外すと、このツールのものが表示されるようになります。
+
 ## 更新履歴
+2021/08/05
+v1.1 更新機能強化,ATSへの対応,Discordにアイコン表示,著作権表示,TruckersMPのサーバー・ID等の表示
+
 2021/07/31
 v1.0.1 誤字修正,プレイ時間表示,新バージョン通知の改修,アイコン変更
 
