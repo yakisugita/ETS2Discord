@@ -47,6 +47,7 @@ namespace ETS2Discord
 			Settings.tmp_mode = ini.GetString("ets2discord", "tmp_mode", "false");
 			Settings.tmp_id = ini.GetString("ets2discord", "tmp_id", "0");
 			Settings.is_login = false;
+			Settings.game = "ETS2";
 
 			Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
 			timer1.Enabled = true; // タイマーを有効化
@@ -163,10 +164,20 @@ namespace ETS2Discord
 					// ETS2/ATS
 					if (response_json["game"]["gameName"].ToString() == "ATS")
                     {
-						Settings.game = "ATS";
+						if(Settings.game == "ETS2")
+                        {
+							Settings.game = "ATS";
+							Initialize();
+							Deinitialize();
+						}
                     } else
                     {
-						Settings.game = "ETS2";
+						if(Settings.game == "ATS")
+                        {
+							Settings.game = "ETS2";
+							Initialize();
+							Deinitialize();
+						}
                     }
 
 					if ((bool)response_json["game"]["connected"])
