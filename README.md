@@ -35,6 +35,9 @@ Trucky APIを使用して情報を取得しています。
 TruckersMPのゲーム内設定で、「general」タブの「Discord Rich Presence」のチェックを外すと、このツールのものが表示されるようになります。
 
 ## 更新履歴
+2021/08/11
+v1.1.1 「このツールについて」を追加,StatusCodeのチェック
+
 2021/08/05
 v1.1 更新機能強化,ATSへの対応,Discordにアイコン表示,著作権表示,TruckersMPのサーバー・ID等の表示
 
