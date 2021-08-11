@@ -16,7 +16,7 @@ namespace ETS2Discord
 		{
 			InitializeComponent();
 			// バージョンチェック
-			Settings.version = "1.1";
+			Settings.version = "1.1.1";
 			VersionCheck(false);
 
 			string fileName = @"./ets2discord.ini";
@@ -24,7 +24,7 @@ namespace ETS2Discord
 			if (!System.IO.File.Exists(fileName))
 			{
 				// iniファイルが無かったら作成
-				DialogResult ini_result = MessageBox.Show("設定ファイルが見つかりません。\n初期設定用のファイルを使用してください。", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+				DialogResult ini_result = MessageBox.Show("設定ファイルが見つかりません。\n新しく作成します。", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 				if (ini_result == DialogResult.OK)
 				{
 					System.IO.File.Create("./ets2discord.ini");
@@ -158,175 +158,189 @@ namespace ETS2Discord
 				using (var httpclient = new HttpClient())
 				{
 					var response = await httpclient.GetAsync(Settings.Telemetry_url); // GET
-					JObject response_json = JObject.Parse(response.Content.ReadAsStringAsync().Result); // 取得した情報をjsonオブジェクトに変換
-																										//MessageBox.Show(response_json["game"]["connected"].ToString(), "確認");
-
-					// ETS2/ATS
-					if (response_json["game"]["gameName"].ToString() == "ATS")
-                    {
-						if(Settings.game == "ETS2")
-                        {
-							Settings.game = "ATS";
-							Deinitialize();
-							Initialize();
-						}
-                    } else
-                    {
-						if(Settings.game == "ATS")
-                        {
-							Settings.game = "ETS2";
-							Deinitialize();
-							Initialize();
-						}
-                    }
-
-					if ((bool)response_json["game"]["connected"])
+					if (response.StatusCode != HttpStatusCode.OK)
 					{
-						status_label.Text = "ゲーム：実行中";
-						if (!discordrpc)
-						{
-							Initialize();
-							discordrpc = true;
-							Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
-						}
-						// DiscordRPCの表示を更新
-						string rpc_details;
-						string rpc_state;
-						int cargo_tons;
-						// フリー走行中か判断 報酬が1未満かどうかで判断
-						if (int.Parse(response_json["job"]["income"].ToString()) < 1)
-						{
-                            // フリー走行中
-                            switch (Settings.free_details)
-                            {
-								case "0":
-									rpc_details = "フリー走行中 - " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-									break;
-								case "1":
-									rpc_details = "フリー走行中";
-									break;
-								case "2":
-									rpc_details = response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-									break;
-                                default:
-									rpc_details = "フリー走行中 - " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-									break;
-                            }
-							// string -> float -> 切り捨て -> int
-							rpc_state = "総走行距離 : " + (int)Math.Floor(float.Parse(response_json["truck"]["odometer"].ToString())) + "km";
-
-                            switch (Settings.free_state)
-                            {
-								case "0":
-									// string -> float -> 切り捨て -> int
-									rpc_state = "総走行距離 : " + (int)Math.Floor(float.Parse(response_json["truck"]["odometer"].ToString())) + "km";
-									break;
-								default:
-									rpc_state = "";
-                                    break;
-                            }
-                        }
-						else
-						{
-							// 配送中
-							// jsonから荷物の重さを取り出してfloatにしてkg->tして切り捨ててintにする
-							cargo_tons = (int)Math.Floor(float.Parse(response_json["cargo"]["mass"].ToString()) / 1000);
-
-                            switch (Settings.job_details)
-                            {
-								case "0":
-									// 報酬(response_json["job"]["income"])はゲーム設定を変えても常にユーロ
-									rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
-									rpc_details += " " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-									break;
-								case "1":
-									rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
-									break;
-								case "2":
-									rpc_details = "配送中 - " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-									break;
-								case "3":
-									rpc_details = response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
-									rpc_details += " " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-									break;
-								case "4":
-									rpc_details = "配送中";
-									break;
-								case "5":
-									rpc_details = response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
-									break;
-								case "6":
-									rpc_details = response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-									break;
-								default:
-									rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
-									rpc_details += " " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-									break;
-                            }
-
-                            switch (Settings.job_state)
-                            {
-								case "0":
-									rpc_state = response_json["job"]["sourceCity"] + " " + response_json["job"]["sourceCompany"] + " -> ";
-									rpc_state += response_json["job"]["destinationCity"] + " " + response_json["job"]["destinationCompany"];
-									break;
-								case "1":
-									rpc_state = response_json["job"]["sourceCity"] + " -> " + response_json["job"]["destinationCity"];
-									break;
-								case "2":
-									rpc_state = response_json["job"]["sourceCompany"] + " -> " + response_json["job"]["destinationCompany"];
-									break;
-								default:
-									rpc_state = response_json["job"]["sourceCity"] + " " + response_json["job"]["sourceCompany"] + " -> ";
-									rpc_state += response_json["job"]["destinationCity"] + " " + response_json["job"]["destinationCompany"];
-									break;
-                            }
-						}
-						if (Settings.is_login && Settings.tmp_mode == "True")
-                        {
-							client.SetPresence(new RichPresence()
-							{
-								Details = Settings.tmp_details,
-								State = rpc_details,
-								Timestamps = Settings.timestamp,
-								Assets = new Assets()
-								{
-									LargeImageKey = "ets2",
-									LargeImageText = "Euro Truck Simulator 2",
-									SmallImageKey = "image_small"
-								}
-							});
-						} else
-                        {
-							client.SetPresence(new RichPresence()
-							{
-								Details = rpc_details,
-								State = rpc_state,
-								Timestamps = Settings.timestamp,
-								Assets = new Assets()
-								{
-									LargeImageKey = "ets2",
-									LargeImageText = "Euro Truck Simulator 2",
-									SmallImageKey = "image_small"
-								}
-							});
-						}
-					}
-					else
-					{
-						status_label.Text = "ゲーム：停止";
+						// 200 OK以外
+						status_label.Text = "データを取得できません 以下を確認してください\n\n・TelemetryServerは起動しているか\n・Telemetry API URLは正しく入力できているか";
 						if (discordrpc)
 						{
-							//Deinitialize();
+							Deinitialize();
 							discordrpc = false;
 						}
-						Deinitialize();
+					} else
+                    {
+						JObject response_json = JObject.Parse(response.Content.ReadAsStringAsync().Result); // 取得した情報をjsonオブジェクトに変換
+																											//MessageBox.Show(response_json["game"]["connected"].ToString(), "確認");
+
+						// ETS2/ATS
+						if (response_json["game"]["gameName"].ToString() == "ATS")
+						{
+							if (Settings.game == "ETS2")
+							{
+								Settings.game = "ATS";
+								Deinitialize();
+								Initialize();
+							}
+						}
+						else
+						{
+							if (Settings.game == "ATS")
+							{
+								Settings.game = "ETS2";
+								Deinitialize();
+								Initialize();
+							}
+						}
+
+						if ((bool)response_json["game"]["connected"])
+						{
+							status_label.Text = "ゲーム：実行中";
+							if (!discordrpc)
+							{
+								Initialize();
+								discordrpc = true;
+								Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
+							}
+							// DiscordRPCの表示を更新
+							string rpc_details;
+							string rpc_state;
+							int cargo_tons;
+							// フリー走行中か判断 報酬が1未満かどうかで判断
+							if (int.Parse(response_json["job"]["income"].ToString()) < 1)
+							{
+								// フリー走行中
+								switch (Settings.free_details)
+								{
+									case "0":
+										rpc_details = "フリー走行中 - " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
+										break;
+									case "1":
+										rpc_details = "フリー走行中";
+										break;
+									case "2":
+										rpc_details = response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
+										break;
+									default:
+										rpc_details = "フリー走行中 - " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
+										break;
+								}
+								// string -> float -> 切り捨て -> int
+								rpc_state = "総走行距離 : " + (int)Math.Floor(float.Parse(response_json["truck"]["odometer"].ToString())) + "km";
+
+								switch (Settings.free_state)
+								{
+									case "0":
+										// string -> float -> 切り捨て -> int
+										rpc_state = "総走行距離 : " + (int)Math.Floor(float.Parse(response_json["truck"]["odometer"].ToString())) + "km";
+										break;
+									default:
+										rpc_state = "";
+										break;
+								}
+							}
+							else
+							{
+								// 配送中
+								// jsonから荷物の重さを取り出してfloatにしてkg->tして切り捨ててintにする
+								cargo_tons = (int)Math.Floor(float.Parse(response_json["cargo"]["mass"].ToString()) / 1000);
+
+								switch (Settings.job_details)
+								{
+									case "0":
+										// 報酬(response_json["job"]["income"])はゲーム設定を変えても常にユーロ
+										rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
+										rpc_details += " " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
+										break;
+									case "1":
+										rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
+										break;
+									case "2":
+										rpc_details = "配送中 - " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
+										break;
+									case "3":
+										rpc_details = response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
+										rpc_details += " " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
+										break;
+									case "4":
+										rpc_details = "配送中";
+										break;
+									case "5":
+										rpc_details = response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
+										break;
+									case "6":
+										rpc_details = response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
+										break;
+									default:
+										rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
+										rpc_details += " " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
+										break;
+								}
+
+								switch (Settings.job_state)
+								{
+									case "0":
+										rpc_state = response_json["job"]["sourceCity"] + " " + response_json["job"]["sourceCompany"] + " -> ";
+										rpc_state += response_json["job"]["destinationCity"] + " " + response_json["job"]["destinationCompany"];
+										break;
+									case "1":
+										rpc_state = response_json["job"]["sourceCity"] + " -> " + response_json["job"]["destinationCity"];
+										break;
+									case "2":
+										rpc_state = response_json["job"]["sourceCompany"] + " -> " + response_json["job"]["destinationCompany"];
+										break;
+									default:
+										rpc_state = response_json["job"]["sourceCity"] + " " + response_json["job"]["sourceCompany"] + " -> ";
+										rpc_state += response_json["job"]["destinationCity"] + " " + response_json["job"]["destinationCompany"];
+										break;
+								}
+							}
+							if (Settings.is_login && Settings.tmp_mode == "True")
+							{
+								client.SetPresence(new RichPresence()
+								{
+									Details = Settings.tmp_details,
+									State = rpc_details,
+									Timestamps = Settings.timestamp,
+									Assets = new Assets()
+									{
+										LargeImageKey = "ets2",
+										LargeImageText = "Euro Truck Simulator 2",
+										SmallImageKey = "image_small"
+									}
+								});
+							}
+							else
+							{
+								client.SetPresence(new RichPresence()
+								{
+									Details = rpc_details,
+									State = rpc_state,
+									Timestamps = Settings.timestamp,
+									Assets = new Assets()
+									{
+										LargeImageKey = "ets2",
+										LargeImageText = "Euro Truck Simulator 2",
+										SmallImageKey = "image_small"
+									}
+								});
+							}
+						}
+						else
+						{
+							status_label.Text = "ゲーム：停止";
+							if (discordrpc)
+							{
+								//Deinitialize();
+								discordrpc = false;
+							}
+							Deinitialize();
+						}
 					}
 				}
 			}
 			catch (Exception)
 			{
-				status_label.Text = "データを取得できません 以下を確認してください\n\n・TelemetryServerは起動しているか\n・Telemetry API URLは正しく入力できているか";
+				status_label.Text = "データ処理に失敗しました。";
 				if (discordrpc)
 				{
 					Deinitialize();
