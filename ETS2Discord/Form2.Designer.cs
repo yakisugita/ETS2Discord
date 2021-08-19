@@ -51,6 +51,18 @@ namespace ETS2Discord
             this.label4 = new System.Windows.Forms.Label();
             this.api_url = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.advanced = new System.Windows.Forms.TabPage();
+            this.custom_job_bottom = new System.Windows.Forms.ComboBox();
+            this.custom_job_top = new System.Windows.Forms.ComboBox();
+            this.custom_free_bottom = new System.Windows.Forms.ComboBox();
+            this.custom_free_top = new System.Windows.Forms.ComboBox();
+            this.customtext_job_bottom = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.customtext_job_top = new System.Windows.Forms.TextBox();
+            this.customtext_free_bottom = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.customtext_free_top = new System.Windows.Forms.TextBox();
+            this.custom = new System.Windows.Forms.CheckBox();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
@@ -58,6 +70,7 @@ namespace ETS2Discord
             this.tabPage_job.SuspendLayout();
             this.tabPage_other.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.truckersmpid)).BeginInit();
+            this.advanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -65,6 +78,7 @@ namespace ETS2Discord
             this.tabControl1.Controls.Add(this.tabPage_normal);
             this.tabControl1.Controls.Add(this.tabPage_job);
             this.tabControl1.Controls.Add(this.tabPage_other);
+            this.tabControl1.Controls.Add(this.advanced);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -301,6 +315,141 @@ namespace ETS2Discord
             this.label3.TabIndex = 0;
             this.label3.Text = "ETS2 Telemetry Server - Telemetry API URL";
             // 
+            // advanced
+            // 
+            this.advanced.Controls.Add(this.custom_job_bottom);
+            this.advanced.Controls.Add(this.custom_job_top);
+            this.advanced.Controls.Add(this.custom_free_bottom);
+            this.advanced.Controls.Add(this.custom_free_top);
+            this.advanced.Controls.Add(this.customtext_job_bottom);
+            this.advanced.Controls.Add(this.label9);
+            this.advanced.Controls.Add(this.customtext_job_top);
+            this.advanced.Controls.Add(this.customtext_free_bottom);
+            this.advanced.Controls.Add(this.label8);
+            this.advanced.Controls.Add(this.customtext_free_top);
+            this.advanced.Controls.Add(this.custom);
+            this.advanced.Location = new System.Drawing.Point(4, 22);
+            this.advanced.Name = "advanced";
+            this.advanced.Size = new System.Drawing.Size(339, 180);
+            this.advanced.TabIndex = 3;
+            this.advanced.Text = "高度な設定";
+            this.advanced.UseVisualStyleBackColor = true;
+            // 
+            // custom_job_bottom
+            // 
+            this.custom_job_bottom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.custom_job_bottom.FormattingEnabled = true;
+            this.custom_job_bottom.Items.AddRange(new object[] {
+            "アイテムを追加",
+            "トラック情報",
+            "走行距離",
+            "配送[フル]",
+            "配送[地域]",
+            "配送[会社]"});
+            this.custom_job_bottom.Location = new System.Drawing.Point(231, 143);
+            this.custom_job_bottom.Name = "custom_job_bottom";
+            this.custom_job_bottom.Size = new System.Drawing.Size(100, 20);
+            this.custom_job_bottom.TabIndex = 10;
+            // 
+            // custom_job_top
+            // 
+            this.custom_job_top.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.custom_job_top.FormattingEnabled = true;
+            this.custom_job_top.Items.AddRange(new object[] {
+            "アイテムを追加",
+            "トラック情報",
+            "走行距離",
+            "配送[フル]",
+            "配送[地域]",
+            "配送[会社]"});
+            this.custom_job_top.Location = new System.Drawing.Point(231, 118);
+            this.custom_job_top.Name = "custom_job_top";
+            this.custom_job_top.Size = new System.Drawing.Size(100, 20);
+            this.custom_job_top.TabIndex = 9;
+            // 
+            // custom_free_bottom
+            // 
+            this.custom_free_bottom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.custom_free_bottom.FormattingEnabled = true;
+            this.custom_free_bottom.Items.AddRange(new object[] {
+            "アイテムを追加",
+            "トラック情報",
+            "走行距離"});
+            this.custom_free_bottom.Location = new System.Drawing.Point(231, 69);
+            this.custom_free_bottom.Name = "custom_free_bottom";
+            this.custom_free_bottom.Size = new System.Drawing.Size(100, 20);
+            this.custom_free_bottom.TabIndex = 8;
+            // 
+            // custom_free_top
+            // 
+            this.custom_free_top.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.custom_free_top.FormattingEnabled = true;
+            this.custom_free_top.Items.AddRange(new object[] {
+            "アイテムを追加",
+            "トラック情報",
+            "走行距離"});
+            this.custom_free_top.Location = new System.Drawing.Point(231, 44);
+            this.custom_free_top.Name = "custom_free_top";
+            this.custom_free_top.Size = new System.Drawing.Size(100, 20);
+            this.custom_free_top.TabIndex = 7;
+            this.custom_free_top.TabIndexChanged += new System.EventHandler(this.customTabIndexChanged);
+            // 
+            // customtext_job_bottom
+            // 
+            this.customtext_job_bottom.Location = new System.Drawing.Point(5, 144);
+            this.customtext_job_bottom.Name = "customtext_job_bottom";
+            this.customtext_job_bottom.Size = new System.Drawing.Size(220, 19);
+            this.customtext_job_bottom.TabIndex = 6;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 104);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(41, 12);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "配送時";
+            // 
+            // customtext_job_top
+            // 
+            this.customtext_job_top.Location = new System.Drawing.Point(5, 119);
+            this.customtext_job_top.Name = "customtext_job_top";
+            this.customtext_job_top.Size = new System.Drawing.Size(220, 19);
+            this.customtext_job_top.TabIndex = 4;
+            // 
+            // customtext_free_bottom
+            // 
+            this.customtext_free_bottom.Location = new System.Drawing.Point(5, 70);
+            this.customtext_free_bottom.Name = "customtext_free_bottom";
+            this.customtext_free_bottom.Size = new System.Drawing.Size(220, 19);
+            this.customtext_free_bottom.TabIndex = 3;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 30);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(66, 12);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "フリー走行時";
+            // 
+            // customtext_free_top
+            // 
+            this.customtext_free_top.Location = new System.Drawing.Point(5, 45);
+            this.customtext_free_top.Name = "customtext_free_top";
+            this.customtext_free_top.Size = new System.Drawing.Size(220, 19);
+            this.customtext_free_top.TabIndex = 1;
+            // 
+            // custom
+            // 
+            this.custom.AutoSize = true;
+            this.custom.Location = new System.Drawing.Point(5, 6);
+            this.custom.Name = "custom";
+            this.custom.Size = new System.Drawing.Size(96, 16);
+            this.custom.TabIndex = 0;
+            this.custom.Text = "カスタムテキスト";
+            this.custom.UseVisualStyleBackColor = true;
+            // 
             // button_cancel
             // 
             this.button_cancel.Location = new System.Drawing.Point(280, 224);
@@ -340,6 +489,8 @@ namespace ETS2Discord
             this.tabPage_other.ResumeLayout(false);
             this.tabPage_other.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.truckersmpid)).EndInit();
+            this.advanced.ResumeLayout(false);
+            this.advanced.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -369,5 +520,17 @@ namespace ETS2Discord
         private System.Windows.Forms.CheckBox truckersmp;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage advanced;
+        private System.Windows.Forms.CheckBox custom;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox customtext_free_top;
+        private System.Windows.Forms.TextBox customtext_job_bottom;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox customtext_job_top;
+        private System.Windows.Forms.TextBox customtext_free_bottom;
+        private System.Windows.Forms.ComboBox custom_job_bottom;
+        private System.Windows.Forms.ComboBox custom_job_top;
+        private System.Windows.Forms.ComboBox custom_free_bottom;
+        private System.Windows.Forms.ComboBox custom_free_top;
     }
 }

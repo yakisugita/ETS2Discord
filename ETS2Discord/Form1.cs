@@ -17,7 +17,7 @@ namespace ETS2Discord
 			InitializeComponent();
 			// バージョンチェック
 			Settings.version = "1.1.1";
-			VersionCheck(false);
+			//VersionCheck(false);
 
 			string fileName = @"./ets2discord.ini";
 			var ini = new IniFile(System.IO.Directory.GetCurrentDirectory() + @"\ets2discord.ini");
@@ -160,6 +160,7 @@ namespace ETS2Discord
 					var response = await httpclient.GetAsync(Settings.Telemetry_url); // GET
 					if (response.StatusCode != HttpStatusCode.OK)
 					{
+						MessageBox.Show("ERR 404");
 						// 200 OK以外
 						status_label.Text = "データを取得できません 以下を確認してください\n\n・TelemetryServerは起動しているか\n・Telemetry API URLは正しく入力できているか";
 						if (discordrpc)
@@ -340,7 +341,7 @@ namespace ETS2Discord
 			}
 			catch (Exception)
 			{
-				status_label.Text = "データ処理に失敗しました。";
+				status_label.Text = "データ取得/処理に失敗しました。\n以下を確認してください。\n\n・ETS2TelemetryServerは起動しているか\n・API URLは正しく入力できているか";
 				if (discordrpc)
 				{
 					Deinitialize();

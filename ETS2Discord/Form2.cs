@@ -11,6 +11,12 @@ namespace ETS2Discord
             // 増減ボタン非表示
             truckersmpid.Controls[0].Visible = false;
 
+            // カスタムテキスト
+            custom_free_top.SelectedIndex = 0;
+            custom_free_bottom.SelectedIndex = 0;
+            custom_job_top.SelectedIndex = 0;
+            custom_job_bottom.SelectedIndex = 0;
+
             // 設定を読み込む
             api_url.Text = Settings.Telemetry_url;
             truckersmp.Checked = bool.Parse(Settings.tmp_mode);
@@ -77,6 +83,19 @@ namespace ETS2Discord
             if (result == DialogResult.OK)
             {
                 System.Diagnostics.Process.Start("https://truckersmp.com/profile");
+            }
+        }
+
+        private void customTabIndexChanged(object sender, EventArgs e)
+        {
+            var customCombo = sender as ComboBox;
+            switch (customCombo.Name)
+            {
+                case "custom_free_top":
+                    customtext_free_top.Text = customtext_free_top.Text + "{0}"
+                    break;
+                default:
+                    break;
             }
         }
     }
