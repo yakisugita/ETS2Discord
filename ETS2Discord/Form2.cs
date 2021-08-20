@@ -86,17 +86,102 @@ namespace ETS2Discord
             }
         }
 
-        private void customTabIndexChanged(object sender, EventArgs e)
+        private void customSelectedIndexChanged(object sender, EventArgs e)
         {
             var customCombo = sender as ComboBox;
+            string add_text = "";
             switch (customCombo.Name)
             {
                 case "custom_free_top":
-                    customtext_free_top.Text = customtext_free_top.Text + "{0}"
+                    switch (customCombo.SelectedIndex)  
+                    {
+                        case 1:
+                            add_text = "{truck}";
+                            break;
+                        case 2:
+                            add_text = "{odo}";
+                            break;
+                        case 3:
+                            add_text = "{status}";
+                            break;
+                        default:
+                            break;
+                    }
+                    customtext_free_top.Text += add_text;
+                    break;
+                case "custom_free_bottom":
+                    switch (customCombo.SelectedIndex)
+                    {
+                        case 1:
+                            add_text = "{truck}";
+                            break;
+                        case 2:
+                            add_text = "{odo}";
+                            break;
+                        case 3:
+                            add_text = "{status}";
+                            break;
+                        default:
+                            break;
+                    }
+                    customtext_free_bottom.Text += add_text;
+                    break;
+                case "custom_job_top":
+                    switch (customCombo.SelectedIndex)
+                    {
+                        case 1:
+                            add_text = "{truck}";
+                            break;
+                        case 2:
+                            add_text = "{odo}";
+                            break;
+                        case 3:
+                            add_text = "{job_full}";
+                            break;
+                        case 4:
+                            add_text = "{job_city}";
+                            break;
+                        case 5:
+                            add_text = "{job_company}";
+                            break;
+                        case 6:
+                            add_text = "{status}";
+                            break;
+                        default:
+                            break;
+                    }
+                    customtext_job_top.Text += add_text;
+                    break;
+                case "custom_job_bottom":
+                    switch (customCombo.SelectedIndex)
+                    {
+                        case 1:
+                            add_text = "{truck}";
+                            break;
+                        case 2:
+                            add_text = "{odo}";
+                            break;
+                        case 3:
+                            add_text = "{job_full}";
+                            break;
+                        case 4:
+                            add_text = "{job_city}";
+                            break;
+                        case 5:
+                            add_text = "{job_company}";
+                            break;
+                        case 6:
+                            add_text = "{status}";
+                            break;
+                        default:
+                            break;
+                    }
+                    customtext_job_bottom.Text += add_text;
                     break;
                 default:
                     break;
             }
+            customCombo.SelectedIndex = 0;
         }
     }
 }

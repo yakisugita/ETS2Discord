@@ -345,11 +345,13 @@ namespace ETS2Discord
             "走行距離",
             "配送[フル]",
             "配送[地域]",
-            "配送[会社]"});
+            "配送[会社]",
+            "ステータス"});
             this.custom_job_bottom.Location = new System.Drawing.Point(231, 143);
             this.custom_job_bottom.Name = "custom_job_bottom";
             this.custom_job_bottom.Size = new System.Drawing.Size(100, 20);
             this.custom_job_bottom.TabIndex = 10;
+            this.custom_job_bottom.SelectedIndexChanged += new System.EventHandler(this.customSelectedIndexChanged);
             // 
             // custom_job_top
             // 
@@ -361,11 +363,13 @@ namespace ETS2Discord
             "走行距離",
             "配送[フル]",
             "配送[地域]",
-            "配送[会社]"});
+            "配送[会社]",
+            "ステータス"});
             this.custom_job_top.Location = new System.Drawing.Point(231, 118);
             this.custom_job_top.Name = "custom_job_top";
             this.custom_job_top.Size = new System.Drawing.Size(100, 20);
             this.custom_job_top.TabIndex = 9;
+            this.custom_job_top.SelectedIndexChanged += new System.EventHandler(this.customSelectedIndexChanged);
             // 
             // custom_free_bottom
             // 
@@ -374,11 +378,13 @@ namespace ETS2Discord
             this.custom_free_bottom.Items.AddRange(new object[] {
             "アイテムを追加",
             "トラック情報",
-            "走行距離"});
+            "走行距離",
+            "ステータス"});
             this.custom_free_bottom.Location = new System.Drawing.Point(231, 69);
             this.custom_free_bottom.Name = "custom_free_bottom";
             this.custom_free_bottom.Size = new System.Drawing.Size(100, 20);
             this.custom_free_bottom.TabIndex = 8;
+            this.custom_free_bottom.SelectedIndexChanged += new System.EventHandler(this.customSelectedIndexChanged);
             // 
             // custom_free_top
             // 
@@ -387,12 +393,13 @@ namespace ETS2Discord
             this.custom_free_top.Items.AddRange(new object[] {
             "アイテムを追加",
             "トラック情報",
-            "走行距離"});
+            "走行距離",
+            "ステータス"});
             this.custom_free_top.Location = new System.Drawing.Point(231, 44);
             this.custom_free_top.Name = "custom_free_top";
             this.custom_free_top.Size = new System.Drawing.Size(100, 20);
             this.custom_free_top.TabIndex = 7;
-            this.custom_free_top.TabIndexChanged += new System.EventHandler(this.customTabIndexChanged);
+            this.custom_free_top.SelectedIndexChanged += new System.EventHandler(this.customSelectedIndexChanged);
             // 
             // customtext_job_bottom
             // 
