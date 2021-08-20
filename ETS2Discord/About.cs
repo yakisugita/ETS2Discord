@@ -13,7 +13,6 @@ namespace ETS2Discord
         private void Link_Click(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var linklabel = sender as LinkLabel;
-            MessageBox.Show(linklabel.Text);
             switch (linklabel.Name)
             {
                 case "DLlink":
