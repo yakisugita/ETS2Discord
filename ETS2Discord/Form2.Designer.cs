@@ -56,13 +56,13 @@ namespace ETS2Discord
             this.custom_job_top = new System.Windows.Forms.ComboBox();
             this.custom_free_bottom = new System.Windows.Forms.ComboBox();
             this.custom_free_top = new System.Windows.Forms.ComboBox();
-            this.customtext_job_bottom = new System.Windows.Forms.TextBox();
+            this.custom_job_state = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.customtext_job_top = new System.Windows.Forms.TextBox();
-            this.customtext_free_bottom = new System.Windows.Forms.TextBox();
+            this.custom_job_details = new System.Windows.Forms.TextBox();
+            this.custom_free_state = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.customtext_free_top = new System.Windows.Forms.TextBox();
-            this.custom = new System.Windows.Forms.CheckBox();
+            this.custom_free_details = new System.Windows.Forms.TextBox();
+            this.customText = new System.Windows.Forms.CheckBox();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
@@ -321,13 +321,13 @@ namespace ETS2Discord
             this.advanced.Controls.Add(this.custom_job_top);
             this.advanced.Controls.Add(this.custom_free_bottom);
             this.advanced.Controls.Add(this.custom_free_top);
-            this.advanced.Controls.Add(this.customtext_job_bottom);
+            this.advanced.Controls.Add(this.custom_job_state);
             this.advanced.Controls.Add(this.label9);
-            this.advanced.Controls.Add(this.customtext_job_top);
-            this.advanced.Controls.Add(this.customtext_free_bottom);
+            this.advanced.Controls.Add(this.custom_job_details);
+            this.advanced.Controls.Add(this.custom_free_state);
             this.advanced.Controls.Add(this.label8);
-            this.advanced.Controls.Add(this.customtext_free_top);
-            this.advanced.Controls.Add(this.custom);
+            this.advanced.Controls.Add(this.custom_free_details);
+            this.advanced.Controls.Add(this.customText);
             this.advanced.Location = new System.Drawing.Point(4, 22);
             this.advanced.Name = "advanced";
             this.advanced.Size = new System.Drawing.Size(339, 180);
@@ -401,12 +401,12 @@ namespace ETS2Discord
             this.custom_free_top.TabIndex = 7;
             this.custom_free_top.SelectedIndexChanged += new System.EventHandler(this.customSelectedIndexChanged);
             // 
-            // customtext_job_bottom
+            // custom_job_state
             // 
-            this.customtext_job_bottom.Location = new System.Drawing.Point(5, 144);
-            this.customtext_job_bottom.Name = "customtext_job_bottom";
-            this.customtext_job_bottom.Size = new System.Drawing.Size(220, 19);
-            this.customtext_job_bottom.TabIndex = 6;
+            this.custom_job_state.Location = new System.Drawing.Point(5, 144);
+            this.custom_job_state.Name = "custom_job_state";
+            this.custom_job_state.Size = new System.Drawing.Size(220, 19);
+            this.custom_job_state.TabIndex = 6;
             // 
             // label9
             // 
@@ -417,19 +417,19 @@ namespace ETS2Discord
             this.label9.TabIndex = 5;
             this.label9.Text = "配送時";
             // 
-            // customtext_job_top
+            // custom_job_details
             // 
-            this.customtext_job_top.Location = new System.Drawing.Point(5, 119);
-            this.customtext_job_top.Name = "customtext_job_top";
-            this.customtext_job_top.Size = new System.Drawing.Size(220, 19);
-            this.customtext_job_top.TabIndex = 4;
+            this.custom_job_details.Location = new System.Drawing.Point(5, 119);
+            this.custom_job_details.Name = "custom_job_details";
+            this.custom_job_details.Size = new System.Drawing.Size(220, 19);
+            this.custom_job_details.TabIndex = 4;
             // 
-            // customtext_free_bottom
+            // custom_free_state
             // 
-            this.customtext_free_bottom.Location = new System.Drawing.Point(5, 70);
-            this.customtext_free_bottom.Name = "customtext_free_bottom";
-            this.customtext_free_bottom.Size = new System.Drawing.Size(220, 19);
-            this.customtext_free_bottom.TabIndex = 3;
+            this.custom_free_state.Location = new System.Drawing.Point(5, 70);
+            this.custom_free_state.Name = "custom_free_state";
+            this.custom_free_state.Size = new System.Drawing.Size(220, 19);
+            this.custom_free_state.TabIndex = 3;
             // 
             // label8
             // 
@@ -440,22 +440,22 @@ namespace ETS2Discord
             this.label8.TabIndex = 2;
             this.label8.Text = "フリー走行時";
             // 
-            // customtext_free_top
+            // custom_free_details
             // 
-            this.customtext_free_top.Location = new System.Drawing.Point(5, 45);
-            this.customtext_free_top.Name = "customtext_free_top";
-            this.customtext_free_top.Size = new System.Drawing.Size(220, 19);
-            this.customtext_free_top.TabIndex = 1;
+            this.custom_free_details.Location = new System.Drawing.Point(5, 45);
+            this.custom_free_details.Name = "custom_free_details";
+            this.custom_free_details.Size = new System.Drawing.Size(220, 19);
+            this.custom_free_details.TabIndex = 1;
             // 
-            // custom
+            // customText
             // 
-            this.custom.AutoSize = true;
-            this.custom.Location = new System.Drawing.Point(5, 6);
-            this.custom.Name = "custom";
-            this.custom.Size = new System.Drawing.Size(96, 16);
-            this.custom.TabIndex = 0;
-            this.custom.Text = "カスタムテキスト";
-            this.custom.UseVisualStyleBackColor = true;
+            this.customText.AutoSize = true;
+            this.customText.Location = new System.Drawing.Point(5, 6);
+            this.customText.Name = "customText";
+            this.customText.Size = new System.Drawing.Size(96, 16);
+            this.customText.TabIndex = 0;
+            this.customText.Text = "カスタムテキスト";
+            this.customText.UseVisualStyleBackColor = true;
             // 
             // button_cancel
             // 
@@ -528,13 +528,13 @@ namespace ETS2Discord
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabPage advanced;
-        private System.Windows.Forms.CheckBox custom;
+        private System.Windows.Forms.CheckBox customText;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox customtext_free_top;
-        private System.Windows.Forms.TextBox customtext_job_bottom;
+        private System.Windows.Forms.TextBox custom_free_details;
+        private System.Windows.Forms.TextBox custom_job_state;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox customtext_job_top;
-        private System.Windows.Forms.TextBox customtext_free_bottom;
+        private System.Windows.Forms.TextBox custom_job_details;
+        private System.Windows.Forms.TextBox custom_free_state;
         private System.Windows.Forms.ComboBox custom_job_bottom;
         private System.Windows.Forms.ComboBox custom_job_top;
         private System.Windows.Forms.ComboBox custom_free_bottom;

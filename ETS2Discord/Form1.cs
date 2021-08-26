@@ -535,6 +535,13 @@ namespace ETS2Discord
 		public static string tmp_details { get; set; }
 		public static bool is_login { get; set; }
 		public static string game { get; set; }
+
+		// カスタムテキスト
+		public static bool custom_enable { get; set; }
+		public static string custom_free_details { get; set; }
+		public static string custom_free_state { get; set; }
+		public static string custom_job_details { get; set; }
+		public static string custom_job_state { get; set; }
 	}
 }
 

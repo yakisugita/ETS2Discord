@@ -33,6 +33,13 @@ namespace ETS2Discord
             {
                 exit_radioButton.Checked = true;
             }
+
+            // カスタムテキスト
+            customText.Checked = Settings.custom_enable;
+            custom_free_details.Text = Settings.custom_free_details;
+            custom_free_state.Text = Settings.custom_free_state;
+            custom_job_details.Text = Settings.custom_job_details;
+            custom_job_state.Text = Settings.custom_job_state;
         }
 
         private void button_ok_Click(object sender, EventArgs e)
@@ -56,6 +63,12 @@ namespace ETS2Discord
                 {
                     ini.WriteString("ets2discord", "x_button_move", "exit");
                 }
+                // カスタムテキスト
+                ini.WriteString("custom", "enable", customText.Checked.ToString());
+                ini.WriteString("custom", "free_details", custom_free_details.Text);
+                ini.WriteString("custom", "free_state", custom_free_state.Text);
+                ini.WriteString("custom", "job_details", custom_job_details.Text);
+                ini.WriteString("custom", "free_state", custom_job_state.Text);
 
                 // DiscordRPCの表示設定はすぐに反映させる
                 Settings.free_details = free_details_combo.SelectedIndex.ToString();
@@ -107,7 +120,7 @@ namespace ETS2Discord
                         default:
                             break;
                     }
-                    customtext_free_top.Text += add_text;
+                    custom_free_details.Text += add_text;
                     break;
                 case "custom_free_bottom":
                     switch (customCombo.SelectedIndex)
@@ -124,7 +137,7 @@ namespace ETS2Discord
                         default:
                             break;
                     }
-                    customtext_free_bottom.Text += add_text;
+                    custom_free_state.Text += add_text;
                     break;
                 case "custom_job_top":
                     switch (customCombo.SelectedIndex)
@@ -150,7 +163,7 @@ namespace ETS2Discord
                         default:
                             break;
                     }
-                    customtext_job_top.Text += add_text;
+                    custom_job_details.Text += add_text;
                     break;
                 case "custom_job_bottom":
                     switch (customCombo.SelectedIndex)
@@ -176,7 +189,7 @@ namespace ETS2Discord
                         default:
                             break;
                     }
-                    customtext_job_bottom.Text += add_text;
+                    custom_job_state.Text += add_text;
                     break;
                 default:
                     break;
