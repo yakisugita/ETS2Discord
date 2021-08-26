@@ -49,6 +49,13 @@ namespace ETS2Discord
 			Settings.is_login = false;
 			Settings.game = "ETS2";
 
+			// カスタムテキスト
+			Settings.custom_enable = bool.Parse(ini.GetString("custom", "enable", "False"));
+			Settings.custom_free_details = ini.GetString("custom", "free_details", "");
+			Settings.custom_free_state = ini.GetString("custom", "free_state", "");
+			Settings.custom_job_details = ini.GetString("custom", "job_details", "");
+			Settings.custom_job_state = ini.GetString("custom", "job_state", "");
+
 			Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
 			timer1.Enabled = true; // タイマーを有効化
 			mptimer.Enabled = true;
@@ -209,96 +216,120 @@ namespace ETS2Discord
 								Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
 							}
 							// DiscordRPCの表示を更新
-							string rpc_details;
+							string rpc_details = "";
 							string rpc_state;
+							string odometer = (int)Math.Floor(float.Parse(response_json["truck"]["odometer"].ToString())) + "km";
 							int cargo_tons;
+							// string -> float -> 切り捨て -> int
+							rpc_state = "総走行距離 : " + (int)Math.Floor(float.Parse(response_json["truck"]["odometer"].ToString())) + "km";
+
+							string truck = response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
 							// フリー走行中か判断 報酬が1未満かどうかで判断
 							if (int.Parse(response_json["job"]["income"].ToString()) < 1)
 							{
 								// フリー走行中
-								switch (Settings.free_details)
-								{
-									case "0":
-										rpc_details = "フリー走行中 - " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-										break;
-									case "1":
-										rpc_details = "フリー走行中";
-										break;
-									case "2":
-										rpc_details = response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-										break;
-									default:
-										rpc_details = "フリー走行中 - " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-										break;
-								}
-								// string -> float -> 切り捨て -> int
-								rpc_state = "総走行距離 : " + (int)Math.Floor(float.Parse(response_json["truck"]["odometer"].ToString())) + "km";
+								if (Settings.custom_enable)
+                                {
+									rpc_details = Settings.custom_free_details.Replace("{truck}", truck).Replace("{odo}", odometer).Replace("{status}", "フリー走行中");
+									rpc_state = Settings.custom_free_state.Replace("{truck}", truck).Replace("{odo}", odometer).Replace("{status}", "フリー走行中");
+								} else
+                                {
+									switch (Settings.free_details)
+									{
+										case "0":
+											rpc_details = "フリー走行中 - " + truck;
+											break;
+										case "1":
+											rpc_details = "フリー走行中";
+											break;
+										case "2":
+											rpc_details = truck;
+											break;
+										default:
+											rpc_details = "フリー走行中 - " + truck;
+											break;
+									}
 
-								switch (Settings.free_state)
-								{
-									case "0":
-										// string -> float -> 切り捨て -> int
-										rpc_state = "総走行距離 : " + (int)Math.Floor(float.Parse(response_json["truck"]["odometer"].ToString())) + "km";
-										break;
-									default:
-										rpc_state = "";
-										break;
+									switch (Settings.free_state)
+									{
+										case "0":
+											// string -> float -> 切り捨て -> int
+											rpc_state = "総走行距離 : " + (int)Math.Floor(float.Parse(response_json["truck"]["odometer"].ToString())) + "km";
+											break;
+										default:
+											rpc_state = "";
+											break;
+									}
 								}
 							}
 							else
 							{
+								string fromcity = response_json["job"]["sourceCity"].ToString();
+								string fromcompany = response_json["job"]["sourceCompany"].ToString();
+								string tocity = response_json["job"]["destinationCity"].ToString();
+								string tocompany = response_json["job"]["destinationCompany"].ToString();
 								// 配送中
-								// jsonから荷物の重さを取り出してfloatにしてkg->tして切り捨ててintにする
-								cargo_tons = (int)Math.Floor(float.Parse(response_json["cargo"]["mass"].ToString()) / 1000);
-
-								switch (Settings.job_details)
+								if (Settings.custom_enable)
 								{
-									case "0":
-										// 報酬(response_json["job"]["income"])はゲーム設定を変えても常にユーロ
-										rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
-										rpc_details += " " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-										break;
-									case "1":
-										rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
-										break;
-									case "2":
-										rpc_details = "配送中 - " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-										break;
-									case "3":
-										rpc_details = response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
-										rpc_details += " " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-										break;
-									case "4":
-										rpc_details = "配送中";
-										break;
-									case "5":
-										rpc_details = response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
-										break;
-									case "6":
-										rpc_details = response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-										break;
-									default:
-										rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
-										rpc_details += " " + response_json["truck"]["make"].ToString() + " " + response_json["truck"]["model"].ToString();
-										break;
-								}
+									rpc_details = Settings.custom_job_details.Replace("{truck}", truck).Replace("{odo}", odometer).Replace("{status}", "配送中");
+									rpc_details += rpc_details.Replace("{job_full}", fromcity + " " + fromcompany + " -> " + tocity + " " + tocompany);
+									rpc_details += rpc_details.Replace("{job_city}", fromcity + " -> " + tocity).Replace("{job_company}", fromcompany + " -> " + tocompany);
+									rpc_details += rpc_details.Replace("{status}", "配送中");
+									rpc_state = Settings.custom_job_state.Replace("{truck}", truck).Replace("{odo}", odometer).Replace("{status}", "配送中");
+								} else
+                                {
+									// jsonから荷物の重さを取り出してfloatにしてkg->tして切り捨ててintにする
+									cargo_tons = (int)Math.Floor(float.Parse(response_json["cargo"]["mass"].ToString()) / 1000);
 
-								switch (Settings.job_state)
-								{
-									case "0":
-										rpc_state = response_json["job"]["sourceCity"] + " " + response_json["job"]["sourceCompany"] + " -> ";
-										rpc_state += response_json["job"]["destinationCity"] + " " + response_json["job"]["destinationCompany"];
-										break;
-									case "1":
-										rpc_state = response_json["job"]["sourceCity"] + " -> " + response_json["job"]["destinationCity"];
-										break;
-									case "2":
-										rpc_state = response_json["job"]["sourceCompany"] + " -> " + response_json["job"]["destinationCompany"];
-										break;
-									default:
-										rpc_state = response_json["job"]["sourceCity"] + " " + response_json["job"]["sourceCompany"] + " -> ";
-										rpc_state += response_json["job"]["destinationCity"] + " " + response_json["job"]["destinationCompany"];
-										break;
+									switch (Settings.job_details)
+									{
+										case "0":
+											// 報酬(response_json["job"]["income"])はゲーム設定を変えても常にユーロ
+											rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
+											rpc_details += " " + truck;
+											break;
+										case "1":
+											rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
+											break;
+										case "2":
+											rpc_details = "配送中 - " + truck;
+											break;
+										case "3":
+											rpc_details = response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
+											rpc_details += " " + truck;
+											break;
+										case "4":
+											rpc_details = "配送中";
+											break;
+										case "5":
+											rpc_details = response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
+											break;
+										case "6":
+											rpc_details = truck;
+											break;
+										default:
+											rpc_details = "配送中 - " + response_json["cargo"]["cargo"] + " " + cargo_tons + "t 報酬:€" + response_json["job"]["income"];
+											rpc_details += " " + truck;
+											break;
+									}
+
+									switch (Settings.job_state)
+									{
+										case "0":
+											rpc_state = fromcity + " " + fromcompany + " -> ";
+											rpc_state += tocity + " " + tocompany;
+											break;
+										case "1":
+											rpc_state = fromcity + " -> " + tocity;
+											break;
+										case "2":
+											rpc_state = fromcompany + " -> " + tocompany;
+											break;
+										default:
+											rpc_state = fromcity + " " + fromcompany + " -> ";
+											rpc_state += tocity + " " + tocompany;
+											break;
+									}
 								}
 							}
 							if (Settings.is_login && Settings.tmp_mode == "True")

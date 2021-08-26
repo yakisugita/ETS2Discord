@@ -44,7 +44,7 @@ namespace ETS2Discord
 
         private void button_ok_Click(object sender, EventArgs e)
         {
-            DialogResult ini_result = MessageBox.Show("設定を上書き保存します。\nその他の設定は次回起動時に適用されます。", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            DialogResult ini_result = MessageBox.Show("設定を上書き保存します。\nその他の設定,高度な設定は次回起動時に適用されます。", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             if (ini_result == DialogResult.OK)
             {
                 // 設定を上書き保存
@@ -68,7 +68,7 @@ namespace ETS2Discord
                 ini.WriteString("custom", "free_details", custom_free_details.Text);
                 ini.WriteString("custom", "free_state", custom_free_state.Text);
                 ini.WriteString("custom", "job_details", custom_job_details.Text);
-                ini.WriteString("custom", "free_state", custom_job_state.Text);
+                ini.WriteString("custom", "job_state", custom_job_state.Text);
 
                 // DiscordRPCの表示設定はすぐに反映させる
                 Settings.free_details = free_details_combo.SelectedIndex.ToString();
