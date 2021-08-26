@@ -150,6 +150,13 @@ namespace ETS2Discord
 			// タスクバーに表示
 			this.ShowInTaskbar = true;
 		}
+		private void ShowToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.WindowState = FormWindowState.Normal;
+			this.TopMost = true;
+			this.TopMost = false;
+			this.ShowInTaskbar = true;
+		}
 
 		private async void timer1_Tick(object sender, EventArgs e)
 		{
@@ -160,7 +167,6 @@ namespace ETS2Discord
 					var response = await httpclient.GetAsync(Settings.Telemetry_url); // GET
 					if (response.StatusCode != HttpStatusCode.OK)
 					{
-						MessageBox.Show("ERR 404");
 						// 200 OK以外
 						status_label.Text = "データを取得できません 以下を確認してください\n\n・TelemetryServerは起動しているか\n・Telemetry API URLは正しく入力できているか";
 						if (discordrpc)
