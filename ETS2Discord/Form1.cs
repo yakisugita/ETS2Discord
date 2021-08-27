@@ -16,7 +16,7 @@ namespace ETS2Discord
 		{
 			InitializeComponent();
 			// バージョンチェック
-			Settings.version = "1.1.1";
+			Settings.version = "1.2";
 			VersionCheck(false);
 
 			string fileName = @"./ets2discord.ini";
@@ -28,6 +28,7 @@ namespace ETS2Discord
 				if (ini_result == DialogResult.OK)
 				{
 					System.IO.File.Create("./ets2discord.ini");
+
 				}
 				else
 				{
