@@ -452,9 +452,9 @@ namespace ETS2Discord
             this.customText.AutoSize = true;
             this.customText.Location = new System.Drawing.Point(5, 6);
             this.customText.Name = "customText";
-            this.customText.Size = new System.Drawing.Size(96, 16);
+            this.customText.Size = new System.Drawing.Size(126, 16);
             this.customText.TabIndex = 0;
-            this.customText.Text = "カスタムテキスト";
+            this.customText.Text = "カスタムテキスト[beta]";
             this.customText.UseVisualStyleBackColor = true;
             // 
             // button_cancel
