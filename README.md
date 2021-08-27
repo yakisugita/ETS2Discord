@@ -11,6 +11,10 @@ ETS2からETS2 TelemetryServerを使用してデータを取得し、Discordに�
 
 二次配布・改変やその配布はOKです。ただし自作発言はNG
 
+## 開発環境
+- Windows 10 Home 21H1
+- Visual Studio 2019
+
 ## 動作環境
 .NET Framework 4.7.2で動作します。
 
@@ -22,10 +26,7 @@ https://yakijake.net/versions/ETS2DRP/
 
 まずETS2DRP_initial.exeを起動してください
 
-画面の指示に従ってETS2TelemetryServerを導入してください。
-
-導入が済んだら、「Telemetry API URLを入力してください」のとこの下に、ETS2TSに表示されているAPI URLを入力してください。コピペでOK
-それが終わったら本体を起動してください。
+画面の指示に従ってETS2TelemetryServerの導入・初期設定をし、それが終わったら本体を起動してください。
 
 ETS2をプレイしてみて、実際に表示されるか試してみて下さい。
 ※セーブデータを読み込んで、トラックに乗る(道路などが読み込まれる)まではDiscordに表示されません
