@@ -422,7 +422,7 @@ namespace ETS2Discord
 					var response = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP"); // GET
 					if (response.Content.ReadAsStringAsync().Result != Settings.version)
 					{
-						string title = "現在のバージョン:" + Settings.version;
+						string title = "更新通知:" + Settings.version;
 						DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\nダウンロードしますか?(ブラウザが開きます)", title, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 						if (result == DialogResult.OK)
                         {
@@ -438,12 +438,12 @@ namespace ETS2Discord
 							}
 						} else
                         {
-							MessageBox.Show("https://yakijake.net/versions/ETS2DRP/ \nここでダウンロードできます", "お知らせ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							MessageBox.Show("https://yakijake.net/versions/ETS2DRP/ \nここでダウンロードできます", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
 						}
 					} else if (click_btn)
                     {
 						// 手動の更新確認
-						MessageBox.Show("新しいバージョンは見つかりませんでした。", "新バージョン", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						MessageBox.Show("新しいバージョンは見つかりませんでした。", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					}
 				}
 			}
