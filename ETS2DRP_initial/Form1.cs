@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ETS2DRP_initial
@@ -15,18 +9,20 @@ namespace ETS2DRP_initial
     {
         public Form1()
         {
-			DialogResult result = MessageBox.Show("ETS2TelemetryServerの導入は済んでいますか?", "質問", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			DialogResult result = MessageBox.Show("ETS2TelemetryServerの導入(Ver4.0以降)は済んでいますか?", "初期設定", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 			if (result == DialogResult.No)
 			{
-				DialogResult result1 = MessageBox.Show("ダウンロードします(ブラウザが開きます)", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+				DialogResult result1 = MessageBox.Show("ダウンロードします(ブラウザが開きます)", "初期設定", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 				if (result1 == DialogResult.OK)
 				{
-					System.Diagnostics.Process.Start("https://github.com/mike-koch/ets2-telemetry-server/archive/refs/heads/master.zip");
-					MessageBox.Show("zipファイルを解凍し、serverフォルダにあるexeファイルを起動してください。(緑のアイコン)", "メッセージ", MessageBoxButtons.OK);
-					MessageBox.Show("「install」をクリックしてインストールしてください。完了したらOKを押してください。\nボタンが無い場合はこの手順をスキップしてください。", "メッセージ", MessageBoxButtons.OK);
+					System.Diagnostics.Process.Start("https://github.com/PauloTNCunha/TelemetryServer4/archive/refs/heads/master.zip");
+					MessageBox.Show("zipファイルを解凍し、セットアップ用のファイルを起動してください(最新版のもの)", "初期設定", MessageBoxButtons.OK);
+					MessageBox.Show("画面の指示にしたがってセットアップを進めてください。", "初期設定", MessageBoxButtons.OK);
+					MessageBox.Show("スタートメニューに「Telemetry Server 4.x.x.x」が追加されているので、起動してください。", "初期設定", MessageBoxButtons.OK);
+					MessageBox.Show("右下の「Install」をクリックしてください。", "初期設定", MessageBoxButtons.OK);
 				}
 			}
-			MessageBox.Show("Telemetry API URLを入力してください。", "メッセージ", MessageBoxButtons.OK);
+			MessageBox.Show("Telemetry Serverに表示されているAPI URLを入力してください。", "初期設定", MessageBoxButtons.OK);
 			InitializeComponent();
         }
 
@@ -40,7 +36,7 @@ namespace ETS2DRP_initial
 			var ini = new IniFile(System.IO.Directory.GetCurrentDirectory() + @"\ets2discord.ini");
 			ini.GetString("ets2discord", "api_url", "");
 			ini.WriteString("ets2discord", "api_url", api_url.Text);
-			MessageBox.Show("初期設定が完了しました。", "メッセージ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			MessageBox.Show("初期設定が完了しました。", "初期設定", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			this.Close();
 		}
     }
