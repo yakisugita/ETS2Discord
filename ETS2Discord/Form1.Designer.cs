@@ -43,6 +43,7 @@ namespace ETS2Discord
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.status_label = new System.Windows.Forms.Label();
             this.mptimer = new System.Windows.Forms.Timer(this.components);
+            this.redisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -61,19 +62,19 @@ namespace ETS2Discord
             this.ShowToolStripMenuItem,
             this.ExitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(99, 48);
             // 
             // ShowToolStripMenuItem
             // 
             this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
-            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.ShowToolStripMenuItem.Text = "表示";
             this.ShowToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.ExitToolStripMenuItem.Text = "終了";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -81,7 +82,8 @@ namespace ETS2Discord
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SettingsToolStripMenuItem,
-            this.infoToolStripMenuItem});
+            this.infoToolStripMenuItem,
+            this.redisplayToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(242, 24);
@@ -107,14 +109,14 @@ namespace ETS2Discord
             // VersionCheckToolStripMenuItem
             // 
             this.VersionCheckToolStripMenuItem.Name = "VersionCheckToolStripMenuItem";
-            this.VersionCheckToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.VersionCheckToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.VersionCheckToolStripMenuItem.Text = "更新の確認";
             this.VersionCheckToolStripMenuItem.Click += new System.EventHandler(this.VersionCheckToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "このツールについて";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -136,6 +138,13 @@ namespace ETS2Discord
             // 
             this.mptimer.Interval = 10000;
             this.mptimer.Tick += new System.EventHandler(this.mptimer_Tick);
+            // 
+            // redisplayToolStripMenuItem
+            // 
+            this.redisplayToolStripMenuItem.Name = "redisplayToolStripMenuItem";
+            this.redisplayToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.redisplayToolStripMenuItem.Text = "再表示";
+            this.redisplayToolStripMenuItem.Click += new System.EventHandler(this.redisplayToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -171,6 +180,7 @@ namespace ETS2Discord
         private System.Windows.Forms.ToolStripMenuItem VersionCheckToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem redisplayToolStripMenuItem;
     }
 }
 

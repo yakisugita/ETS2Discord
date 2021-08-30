@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 制御されます。アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更します。
 [assembly: AssemblyTitle("ETS2DRP_initial")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("初期設定用プログラム")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ETS2DRP_initial")]

@@ -60,11 +60,11 @@ namespace ETS2Discord
 			Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
 			timer1.Enabled = true; // タイマーを有効化
 			mptimer.Enabled = true;
-			Initialize(); // 最初にこれを入れないとETS2起動中に実行したときにエラーでる
+			//Initialize(); // 最初にこれを入れないとETS2起動中に実行したときにエラーでる
 		}
 
 		public DiscordRpcClient client;
-		bool discordrpc = true; // DiscordRPCが有効かどうか
+		bool discordrpc = false; // DiscordRPCが有効かどうか
 
 		//Called when your application first starts.
 		//For example, just before your main loop, on OnEnable for unity.
@@ -273,10 +273,14 @@ namespace ETS2Discord
 								if (Settings.custom_enable)
 								{
 									rpc_details = Settings.custom_job_details.Replace("{truck}", truck).Replace("{odo}", odometer).Replace("{status}", "配送中");
-									rpc_details += rpc_details.Replace("{job_full}", fromcity + " " + fromcompany + " -> " + tocity + " " + tocompany);
-									rpc_details += rpc_details.Replace("{job_city}", fromcity + " -> " + tocity).Replace("{job_company}", fromcompany + " -> " + tocompany);
-									rpc_details += rpc_details.Replace("{status}", "配送中");
+									rpc_details = rpc_details.Replace("{job_full}", fromcity + " " + fromcompany + " -> " + tocity + " " + tocompany);
+									rpc_details = rpc_details.Replace("{job_city}", fromcity + " -> " + tocity).Replace("{job_company}", fromcompany + " -> " + tocompany);
+									rpc_details = rpc_details.Replace("{status}", "配送中");
+
 									rpc_state = Settings.custom_job_state.Replace("{truck}", truck).Replace("{odo}", odometer).Replace("{status}", "配送中");
+									rpc_state = rpc_state.Replace("{job_full}", fromcity + " " + fromcompany + " -> " + tocity + " " + tocompany);
+									rpc_state = rpc_state.Replace("{job_city}", fromcity + " -> " + tocity).Replace("{job_company}", fromcompany + " -> " + tocompany);
+									rpc_state = rpc_state.Replace("{status}", "配送中");
 								} else
                                 {
 									// jsonから荷物の重さを取り出してfloatにしてkg->tして切り捨ててintにする
@@ -333,6 +337,7 @@ namespace ETS2Discord
 									}
 								}
 							}
+							Console.WriteLine(client.CurrentPresence);
 							if (Settings.is_login && Settings.tmp_mode == "True")
 							{
 								client.SetPresence(new RichPresence()
@@ -377,8 +382,9 @@ namespace ETS2Discord
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception err)
 			{
+				System.IO.File.WriteAllText("./error.log", err.Message); // 上書き
 				status_label.Text = "データ取得/処理に失敗しました。\n以下を確認してください。\n\n・ETS2TelemetryServerは起動しているか\n・API URLは正しく入力できているか";
 				if (discordrpc)
 				{
@@ -511,6 +517,12 @@ namespace ETS2Discord
 			About about = new About();
 			about.Show();
 		}
+
+        private void redisplayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			Deinitialize();
+			discordrpc = false;
+        }
     }
 
 
