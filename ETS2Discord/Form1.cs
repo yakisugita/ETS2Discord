@@ -7,6 +7,7 @@ using DiscordRPC.Logging;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Net;
+using System.Diagnostics;
 
 namespace ETS2Discord
 {
@@ -143,7 +144,10 @@ namespace ETS2Discord
 
 		void Deinitialize()
 		{
-			client.Dispose();
+			if (client != null)
+            {
+				client.Dispose();
+			}
 		}
 
 		private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -193,8 +197,11 @@ namespace ETS2Discord
 							if (Settings.game == "ETS2")
 							{
 								Settings.game = "ATS";
-								Deinitialize();
-								Initialize();
+								if (discordrpc)
+								{
+									Deinitialize();
+									discordrpc = false;
+								}
 							}
 						}
 						else
@@ -202,8 +209,11 @@ namespace ETS2Discord
 							if (Settings.game == "ATS")
 							{
 								Settings.game = "ETS2";
-								Deinitialize();
-								Initialize();
+								if (discordrpc)
+                                {
+									Deinitialize();
+									discordrpc = false;
+                                }
 							}
 						}
 
@@ -384,7 +394,12 @@ namespace ETS2Discord
 			}
 			catch (Exception err)
 			{
-				System.IO.File.WriteAllText("./error.log", err.Message); // 上書き
+				// 時刻
+				DateTime dt = DateTime.Now;
+				// エラーが起きてる行
+				StackTrace stacktrace = new StackTrace(1, true);
+				int errline = stacktrace.GetFrame(0).GetFileLineNumber();
+				System.IO.File.WriteAllText("./error.log", $"{dt.ToString("yyyy/MM/dd HH:mm:ss:")}\n{err.Message}\nFile: {stacktrace.GetFrame(0).GetFileName()}, row : {errline}"); // 上書き
 				status_label.Text = "データ取得/処理に失敗しました。\n以下を確認してください。\n\n・ETS2TelemetryServerは起動しているか\n・API URLは正しく入力できているか";
 				if (discordrpc)
 				{
