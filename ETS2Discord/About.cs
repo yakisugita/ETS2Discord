@@ -21,6 +21,9 @@ namespace ETS2Discord
                 case "Discordlink":
                     System.Diagnostics.Process.Start("https://discord.gg/vebXVYYHVu");
                     break;
+                case "GFormlink":
+                    System.Diagnostics.Process.Start("https://docs.google.com/forms/d/e/1FAIpQLSeYU7fDX0MqZ0yPzqnkVGmLd_QAtI9rVw5hiHjDc3w84axUtA/viewform");
+                    break;
                 case "Twitterlink":
                     System.Diagnostics.Process.Start("https://twitter.com/_yakisugita_");
                     break;

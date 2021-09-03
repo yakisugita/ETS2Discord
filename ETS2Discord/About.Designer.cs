@@ -33,8 +33,7 @@ namespace ETS2Discord
             this.versionlabel = new System.Windows.Forms.Label();
             this.DLlink = new System.Windows.Forms.LinkLabel();
             this.Twitterlink = new System.Windows.Forms.LinkLabel();
-            this.Discordlink = new System.Windows.Forms.LinkLabel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.GFormlink = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // versionlabel
@@ -51,16 +50,16 @@ namespace ETS2Discord
             this.DLlink.AutoSize = true;
             this.DLlink.Location = new System.Drawing.Point(12, 39);
             this.DLlink.Name = "DLlink";
-            this.DLlink.Size = new System.Drawing.Size(59, 12);
+            this.DLlink.Size = new System.Drawing.Size(173, 12);
             this.DLlink.TabIndex = 1;
             this.DLlink.TabStop = true;
-            this.DLlink.Text = "配布ページ";
+            this.DLlink.Text = "配布ページ(各種リンクや説明書等)";
             this.DLlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_Click);
             // 
             // Twitterlink
             // 
             this.Twitterlink.AutoSize = true;
-            this.Twitterlink.Location = new System.Drawing.Point(12, 115);
+            this.Twitterlink.Location = new System.Drawing.Point(12, 99);
             this.Twitterlink.Name = "Twitterlink";
             this.Twitterlink.Size = new System.Drawing.Size(77, 12);
             this.Twitterlink.TabIndex = 2;
@@ -68,33 +67,23 @@ namespace ETS2Discord
             this.Twitterlink.Text = "制作者Twitter";
             this.Twitterlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_Click);
             // 
-            // Discordlink
+            // GFormlink
             // 
-            this.Discordlink.AutoSize = true;
-            this.Discordlink.Location = new System.Drawing.Point(12, 69);
-            this.Discordlink.Name = "Discordlink";
-            this.Discordlink.Size = new System.Drawing.Size(44, 12);
-            this.Discordlink.TabIndex = 3;
-            this.Discordlink.TabStop = true;
-            this.Discordlink.Text = "Discord";
-            this.Discordlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 85);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 12);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "最新版をより早く試せます";
+            this.GFormlink.AutoSize = true;
+            this.GFormlink.Location = new System.Drawing.Point(12, 69);
+            this.GFormlink.Name = "GFormlink";
+            this.GFormlink.Size = new System.Drawing.Size(94, 12);
+            this.GFormlink.TabIndex = 3;
+            this.GFormlink.TabStop = true;
+            this.GFormlink.Text = "不具合の報告など";
+            this.GFormlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_Click);
             // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(184, 161);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.Discordlink);
+            this.ClientSize = new System.Drawing.Size(204, 121);
+            this.Controls.Add(this.GFormlink);
             this.Controls.Add(this.Twitterlink);
             this.Controls.Add(this.DLlink);
             this.Controls.Add(this.versionlabel);
@@ -111,7 +100,6 @@ namespace ETS2Discord
         private System.Windows.Forms.Label versionlabel;
         private System.Windows.Forms.LinkLabel DLlink;
         private System.Windows.Forms.LinkLabel Twitterlink;
-        private System.Windows.Forms.LinkLabel Discordlink;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel GFormlink;
     }
 }
