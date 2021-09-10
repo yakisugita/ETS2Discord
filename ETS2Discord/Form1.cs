@@ -21,7 +21,6 @@ namespace ETS2Discord
 			VersionCheck(false);
 
 			string fileName = @"./ets2discord.ini";
-			var ini = new IniFile(System.IO.Directory.GetCurrentDirectory() + @"\ets2discord.ini");
 			if (!System.IO.File.Exists(fileName))
 			{
 				// iniファイルが無かったら作成
@@ -38,25 +37,8 @@ namespace ETS2Discord
 					this.Close();
 				}
 			}
-
-			Settings.Telemetry_url = ini.GetString("ets2discord", "api_url", "http://192.168.56.1:25555/api/ets2/telemetry");// API URLを取得 (取得できなければ初期設定のURL)
-			Settings.X_button_move = ini.GetString("ets2discord", "x_button_move", "minimum"); // xボタンを押したときの動作
-			// DiscordRPCの表示設定
-			Settings.free_details = ini.GetString("ets2discord", "free_details", "0");
-			Settings.free_state = ini.GetString("ets2discord", "free_state", "0");
-			Settings.job_details = ini.GetString("ets2discord", "job_details", "0");
-			Settings.job_state = ini.GetString("ets2discord", "job_state", "0");
-			Settings.tmp_mode = ini.GetString("ets2discord", "tmp_mode", "false");
-			Settings.tmp_id = ini.GetString("ets2discord", "tmp_id", "0");
-			Settings.is_login = false;
-			Settings.game = "ETS2";
-
-			// カスタムテキスト
-			Settings.custom_enable = bool.Parse(ini.GetString("custom", "enable", "False"));
-			Settings.custom_free_details = ini.GetString("custom", "free_details", "");
-			Settings.custom_free_state = ini.GetString("custom", "free_state", "");
-			Settings.custom_job_details = ini.GetString("custom", "job_details", "");
-			Settings.custom_job_state = ini.GetString("custom", "job_state", "");
+			// iniファイル読み込み
+			getSettings();
 
 			Settings.timestamp = new Timestamps() { Start = DateTime.UtcNow };
 			timer1.Enabled = true; // タイマーを有効化
@@ -189,7 +171,6 @@ namespace ETS2Discord
 					} else
                     {
 						JObject response_json = JObject.Parse(response.Content.ReadAsStringAsync().Result); // 取得した情報をjsonオブジェクトに変換
-																											//MessageBox.Show(response_json["game"]["connected"].ToString(), "確認");
 
 						// ETS2/ATS
 						if (response_json["game"]["gameName"].ToString() == "ATS")
@@ -513,7 +494,7 @@ namespace ETS2Discord
 								location = response_json["response"]["location"]["poi"]["realName"].ToString() + "付近";
 
 							}
-							Settings.tmp_details = "鯖:" + servername + " | ID:" + id + " | " + location;
+							Settings.tmp_details = servername + " | ID:" + id + " | " + location;
 						}
 						else
 						{
@@ -522,8 +503,14 @@ namespace ETS2Discord
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception err)
 			{
+				// 時刻
+				DateTime dt = DateTime.Now;
+				// エラーが起きてる行
+				StackTrace stacktrace = new StackTrace(1, true);
+				int errline = stacktrace.GetFrame(0).GetFileLineNumber();
+				System.IO.File.WriteAllText("./error.log", $"{dt.ToString("[MPCheckERR] yyyy/MM/dd HH:mm:ss:")}\n{err.Message}\nFile: {stacktrace.GetFrame(0).GetFileName()}, row : {errline}"); // 上書き
 			}
 		}
 
@@ -538,6 +525,30 @@ namespace ETS2Discord
 			Deinitialize();
 			discordrpc = false;
         }
+
+		public void getSettings()
+        {
+			var ini = new IniFile(System.IO.Directory.GetCurrentDirectory() + @"\ets2discord.ini");
+
+			Settings.Telemetry_url = ini.GetString("ets2discord", "api_url", "http://192.168.56.1:25555/api/ets2/telemetry");// API URLを取得 (取得できなければ初期設定のURL)
+			Settings.X_button_move = ini.GetString("ets2discord", "x_button_move", "minimum"); // xボタンを押したときの動作
+			// DiscordRPCの表示設定
+			Settings.free_details = ini.GetString("ets2discord", "free_details", "0");
+			Settings.free_state = ini.GetString("ets2discord", "free_state", "0");
+			Settings.job_details = ini.GetString("ets2discord", "job_details", "0");
+			Settings.job_state = ini.GetString("ets2discord", "job_state", "0");
+			Settings.tmp_mode = ini.GetString("ets2discord", "tmp_mode", "false");
+			Settings.tmp_id = ini.GetString("ets2discord", "tmp_id", "0");
+			Settings.is_login = false;
+			Settings.game = "ETS2";
+
+			// カスタムテキスト
+			Settings.custom_enable = bool.Parse(ini.GetString("custom", "enable", "False"));
+			Settings.custom_free_details = ini.GetString("custom", "free_details", "");
+			Settings.custom_free_state = ini.GetString("custom", "free_state", "");
+			Settings.custom_job_details = ini.GetString("custom", "job_details", "");
+			Settings.custom_job_state = ini.GetString("custom", "job_state", "");
+		}
     }
 
 
