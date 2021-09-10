@@ -426,14 +426,14 @@ namespace ETS2Discord
 					if (response.Content.ReadAsStringAsync().Result != Settings.version)
 					{
 						string title = "更新通知:" + Settings.version;
-						DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\nダウンロードしますか?(ブラウザが開きます)", title, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-						if (result == DialogResult.OK)
+						DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\nダウンロードしますか?(ブラウザが開きます)", title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+						if (result == DialogResult.Yes)
                         {
 							var response2 = await httpclient.GetAsync("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_v" + response.Content.ReadAsStringAsync().Result + ".zip");
 							if (response.StatusCode != HttpStatusCode.OK)
 							{
 								//200 OK意外
-								MessageBox.Show("ファイルが無いようです。\nhttps://yakijake.net/versions/ETS2DRP/ \nで手動でダウンロードできます。", "エラー", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+								MessageBox.Show("ダウンロードできませんでした。\nhttps://yakijake.net/versions/ETS2DRP/ \nで手動でダウンロードできます。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
 							} else
                             {
 								// ブラウザで開く

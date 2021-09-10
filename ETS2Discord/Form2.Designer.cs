@@ -482,6 +482,7 @@ namespace ETS2Discord
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(373, 259);
+            this.ControlBox = false;
             this.Controls.Add(this.button_ok);
             this.Controls.Add(this.button_cancel);
             this.Controls.Add(this.tabControl1);
