@@ -111,9 +111,6 @@ namespace ETS2Discord
                         case 2:
                             add_text = "{odo}";
                             break;
-                        case 3:
-                            add_text = "{status}";
-                            break;
                         default:
                             break;
                     }
@@ -127,9 +124,6 @@ namespace ETS2Discord
                             break;
                         case 2:
                             add_text = "{odo}";
-                            break;
-                        case 3:
-                            add_text = "{status}";
                             break;
                         default:
                             break;
@@ -154,9 +148,6 @@ namespace ETS2Discord
                         case 5:
                             add_text = "{job_company}";
                             break;
-                        case 6:
-                            add_text = "{status}";
-                            break;
                         default:
                             break;
                     }
@@ -179,9 +170,6 @@ namespace ETS2Discord
                             break;
                         case 5:
                             add_text = "{job_company}";
-                            break;
-                        case 6:
-                            add_text = "{status}";
                             break;
                         default:
                             break;

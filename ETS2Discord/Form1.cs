@@ -222,8 +222,8 @@ namespace ETS2Discord
 								// フリー走行中
 								if (Settings.custom_enable)
                                 {
-									rpc_details = Settings.custom_free_details.Replace("{truck}", truck).Replace("{odo}", odometer).Replace("{status}", "フリー走行中");
-									rpc_state = Settings.custom_free_state.Replace("{truck}", truck).Replace("{odo}", odometer).Replace("{status}", "フリー走行中");
+									rpc_details = Settings.custom_free_details.Replace("{truck}", truck).Replace("{odo}", odometer);
+									rpc_state = Settings.custom_free_state.Replace("{truck}", truck).Replace("{odo}", odometer);
 								} else
                                 {
 									switch (Settings.free_details)
@@ -263,15 +263,13 @@ namespace ETS2Discord
 								// 配送中
 								if (Settings.custom_enable)
 								{
-									rpc_details = Settings.custom_job_details.Replace("{truck}", truck).Replace("{odo}", odometer).Replace("{status}", "配送中");
+									rpc_details = Settings.custom_job_details.Replace("{truck}", truck).Replace("{odo}", odometer);
 									rpc_details = rpc_details.Replace("{job_full}", fromcity + " " + fromcompany + " -> " + tocity + " " + tocompany);
 									rpc_details = rpc_details.Replace("{job_city}", fromcity + " -> " + tocity).Replace("{job_company}", fromcompany + " -> " + tocompany);
-									rpc_details = rpc_details.Replace("{status}", "配送中");
 
-									rpc_state = Settings.custom_job_state.Replace("{truck}", truck).Replace("{odo}", odometer).Replace("{status}", "配送中");
+									rpc_state = Settings.custom_job_state.Replace("{truck}", truck).Replace("{odo}", odometer);
 									rpc_state = rpc_state.Replace("{job_full}", fromcity + " " + fromcompany + " -> " + tocity + " " + tocompany);
 									rpc_state = rpc_state.Replace("{job_city}", fromcity + " -> " + tocity).Replace("{job_company}", fromcompany + " -> " + tocompany);
-									rpc_state = rpc_state.Replace("{status}", "配送中");
 								} else
                                 {
 									// jsonから荷物の重さを取り出してfloatにしてkg->tして切り捨ててintにする

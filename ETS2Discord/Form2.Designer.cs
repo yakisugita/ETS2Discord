@@ -345,8 +345,7 @@ namespace ETS2Discord
             "走行距離",
             "配送[フル]",
             "配送[地域]",
-            "配送[会社]",
-            "ステータス"});
+            "配送[会社]"});
             this.custom_job_bottom.Location = new System.Drawing.Point(231, 143);
             this.custom_job_bottom.Name = "custom_job_bottom";
             this.custom_job_bottom.Size = new System.Drawing.Size(100, 20);
@@ -363,8 +362,7 @@ namespace ETS2Discord
             "走行距離",
             "配送[フル]",
             "配送[地域]",
-            "配送[会社]",
-            "ステータス"});
+            "配送[会社]"});
             this.custom_job_top.Location = new System.Drawing.Point(231, 118);
             this.custom_job_top.Name = "custom_job_top";
             this.custom_job_top.Size = new System.Drawing.Size(100, 20);
@@ -378,8 +376,7 @@ namespace ETS2Discord
             this.custom_free_bottom.Items.AddRange(new object[] {
             "アイテムを追加",
             "トラック情報",
-            "走行距離",
-            "ステータス"});
+            "走行距離"});
             this.custom_free_bottom.Location = new System.Drawing.Point(231, 69);
             this.custom_free_bottom.Name = "custom_free_bottom";
             this.custom_free_bottom.Size = new System.Drawing.Size(100, 20);
@@ -393,8 +390,7 @@ namespace ETS2Discord
             this.custom_free_top.Items.AddRange(new object[] {
             "アイテムを追加",
             "トラック情報",
-            "走行距離",
-            "ステータス"});
+            "走行距離"});
             this.custom_free_top.Location = new System.Drawing.Point(231, 44);
             this.custom_free_top.Name = "custom_free_top";
             this.custom_free_top.Size = new System.Drawing.Size(100, 20);
