@@ -260,16 +260,22 @@ namespace ETS2Discord
 								string fromcompany = response_json["job"]["sourceCompany"].ToString();
 								string tocity = response_json["job"]["destinationCity"].ToString();
 								string tocompany = response_json["job"]["destinationCompany"].ToString();
+								string cargo_name = response_json["cargo"]["cargo"].ToString();
+								float cargo_mass_float = float.Parse(response_json["cargo"]["mass"].ToString());
+								string cargo_mass = (cargo_mass_float/1000).ToString();
+								string job_income = response_json["job"]["income"].ToString();
 								// 配送中
 								if (Settings.custom_enable)
 								{
 									rpc_details = Settings.custom_job_details.Replace("{truck}", truck).Replace("{odo}", odometer);
 									rpc_details = rpc_details.Replace("{job_full}", fromcity + " " + fromcompany + " -> " + tocity + " " + tocompany);
 									rpc_details = rpc_details.Replace("{job_city}", fromcity + " -> " + tocity).Replace("{job_company}", fromcompany + " -> " + tocompany);
+									rpc_details = rpc_details.Replace("{cargo}", cargo_name).Replace("{mass}", cargo_mass + "t").Replace("{income}", "€" + job_income);
 
 									rpc_state = Settings.custom_job_state.Replace("{truck}", truck).Replace("{odo}", odometer);
 									rpc_state = rpc_state.Replace("{job_full}", fromcity + " " + fromcompany + " -> " + tocity + " " + tocompany);
 									rpc_state = rpc_state.Replace("{job_city}", fromcity + " -> " + tocity).Replace("{job_company}", fromcompany + " -> " + tocompany);
+									rpc_state = rpc_state.Replace("{cargo}", cargo_name).Replace("{mass}", cargo_mass + "t").Replace("{income}", "€" + job_income);
 								} else
                                 {
 									// jsonから荷物の重さを取り出してfloatにしてkg->tして切り捨ててintにする
