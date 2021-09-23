@@ -28,6 +28,9 @@ namespace ETS2Discord
 				if (ini_result == DialogResult.OK)
 				{
 					System.IO.File.Create("./ets2discord.ini");
+					// 終了する
+					Settings.X_button_move = "exit";
+					this.Close();
 
 				}
 				else
@@ -534,7 +537,7 @@ namespace ETS2Discord
         {
 			var ini = new IniFile(System.IO.Directory.GetCurrentDirectory() + @"\ets2discord.ini");
 
-			Settings.Telemetry_url = ini.GetString("ets2discord", "api_url", "http://192.168.56.1:25555/api/ets2/telemetry");// API URLを取得 (取得できなければ初期設定のURL)
+			Settings.Telemetry_url = ini.GetString("ets2discord", "api_url", "http://127.0.0.1:25555/api/ets2/telemetry");// API URLを取得 (取得できなければ初期設定のURL)
 			Settings.X_button_move = ini.GetString("ets2discord", "x_button_move", "minimum"); // xボタンを押したときの動作
 			// DiscordRPCの表示設定
 			Settings.free_details = ini.GetString("ets2discord", "free_details", "0");
