@@ -430,26 +430,29 @@ namespace ETS2Discord
 				using (var httpclient = new HttpClient())
 				{
 					var response = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP"); // GET
+					var response_ = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP/before"); // 前のバージョン
 					if (response.Content.ReadAsStringAsync().Result != Settings.version)
 					{
-						string title = "更新通知:" + Settings.version;
-						DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\nダウンロードしますか?(ブラウザが開きます)", title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-						if (result == DialogResult.Yes)
+						if (response_.Content.ReadAsStringAsync().Result == Settings.version)
                         {
-							var response2 = await httpclient.GetAsync("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_v" + response.Content.ReadAsStringAsync().Result + ".zip");
-							if (response.StatusCode != HttpStatusCode.OK)
+							string title = "更新通知:" + Settings.version;
+							DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\n差分のみダウンロードします。よろしいですか?", title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+							if (result == DialogResult.Yes)
 							{
-								//200 OK意外
-								MessageBox.Show("ダウンロードできませんでした。\nhttps://yakijake.net/versions/ETS2DRP/ \nで手動でダウンロードできます。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-							} else
-                            {
 								// ブラウザで開く
-								System.Diagnostics.Process.Start("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_v" + response.Content.ReadAsStringAsync().Result + ".zip");
+								System.Diagnostics.Process.Start("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_diff.zip");
 							}
 						} else
                         {
-							MessageBox.Show("https://yakijake.net/versions/ETS2DRP/ \nここでダウンロードできます", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							string title = "更新通知:" + Settings.version;
+							DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\nダウンロードしますか?(ブラウザが開きます)", title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+							if (result == DialogResult.Yes)
+							{
+								// ブラウザで開く
+								System.Diagnostics.Process.Start("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_v" + response.Content.ReadAsStringAsync().Result + ".zip");
+							}
 						}
+						MessageBox.Show("「このツールについて」の配布ページからでもダウンロードできます。", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					} else if (click_btn)
                     {
 						// 手動の更新確認
