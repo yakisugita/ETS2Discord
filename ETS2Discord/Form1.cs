@@ -17,7 +17,7 @@ namespace ETS2Discord
 		{
 			InitializeComponent();
 			// バージョンチェック
-			Settings.version = "1.2.2";
+			Settings.version = "1.2.1";
 			VersionCheck(false);
 
 			string fileName = @"./ets2discord.ini";
@@ -369,6 +369,29 @@ namespace ETS2Discord
 						}
 						else
 						{
+							// ゲームをやめた時だけ
+							if (status_label.Text == "ゲーム：実行中")
+                            {
+								try
+								{
+									var response__ = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP"); // GET
+									if (response__.Content.ReadAsStringAsync().Result != Settings.version)
+									{
+										update_notice.Text = "更新があります インフォ→更新を確認でチェック";
+										update_notice.ForeColor = System.Drawing.Color.Green;
+									}
+									else
+									{
+										update_notice.Text = "最新版を利用中です";
+										update_notice.ForeColor = System.Drawing.Color.Black;
+									}
+								}
+								catch (Exception)
+								{
+									update_notice.Text = "更新確認に失敗しました";
+									update_notice.ForeColor = System.Drawing.Color.Black;
+								}
+							}
 							status_label.Text = "ゲーム：停止";
 							if (discordrpc)
 							{
