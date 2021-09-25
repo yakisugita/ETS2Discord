@@ -448,7 +448,7 @@ namespace ETS2Discord
 
 		private async void VersionCheck(bool click_btn)
         {
-            try
+			try
             {
 				using (var httpclient = new HttpClient())
 				{
@@ -456,6 +456,9 @@ namespace ETS2Discord
 					var response_ = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP/before"); // 前のバージョン
 					if (response.Content.ReadAsStringAsync().Result != Settings.version)
 					{
+						update_notice.Text = "更新があります インフォ→更新を確認でチェック";
+						update_notice.ForeColor = System.Drawing.Color.Green;
+
 						if (response_.Content.ReadAsStringAsync().Result == Settings.version)
                         {
 							string title = "更新通知:" + Settings.version;
@@ -480,11 +483,20 @@ namespace ETS2Discord
                     {
 						// 手動の更新確認
 						MessageBox.Show("新しいバージョンは見つかりませんでした。", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						update_notice.Text = "最新版を利用中です";
+						update_notice.ForeColor = System.Drawing.Color.Black;
+					} else
+                    {
+						update_notice.Text = "最新版を利用中です";
+						update_notice.ForeColor = System.Drawing.Color.Black;
 					}
 				}
 			}
             catch (Exception)
             {
+				update_notice.Text = "更新確認に失敗しました";
+				update_notice.ForeColor = System.Drawing.Color.Black;
+
 				if (click_btn)
                 {
 					MessageBox.Show("何らかの原因で確認/ダウンロードに失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
