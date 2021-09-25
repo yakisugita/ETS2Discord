@@ -370,7 +370,7 @@ namespace ETS2Discord
 						else
 						{
 							// ゲームをやめた時だけ
-							if (status_label.Text == "ゲーム：実行中")
+							if (status_label.Text == "ゲーム：実行中" && !System.IO.File.Exists("./noupdate"))
                             {
 								try
 								{
@@ -448,58 +448,65 @@ namespace ETS2Discord
 
 		private async void VersionCheck(bool click_btn)
         {
-			try
+			// noupdateファイルがあれば勝手に更新確認しない 手動ならする
+			if (!System.IO.File.Exists("./noupdate") || click_btn)
             {
-				using (var httpclient = new HttpClient())
+				try
 				{
-					var response = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP"); // GET
-					var response_ = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP/before"); // 前のバージョン
-					if (response.Content.ReadAsStringAsync().Result != Settings.version)
+					using (var httpclient = new HttpClient())
 					{
-						update_notice.Text = "更新があります インフォ→更新を確認でチェック";
-						update_notice.ForeColor = System.Drawing.Color.Green;
+						var response = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP"); // GET
+						var response_ = await httpclient.GetAsync("https://yakijake.net/version/ETS2DRP/before"); // 前のバージョン
+						if (response.Content.ReadAsStringAsync().Result != Settings.version)
+						{
+							update_notice.Text = "更新があります インフォ→更新を確認でチェック";
+							update_notice.ForeColor = System.Drawing.Color.Green;
 
-						if (response_.Content.ReadAsStringAsync().Result == Settings.version)
-                        {
-							string title = "更新通知:" + Settings.version;
-							DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\n差分のみダウンロードします。よろしいですか?", title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-							if (result == DialogResult.Yes)
+							if (response_.Content.ReadAsStringAsync().Result == Settings.version)
 							{
-								// ブラウザで開く
-								System.Diagnostics.Process.Start("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_diff.zip");
+								string title = "更新通知:" + Settings.version;
+								DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\n差分のみダウンロードします。よろしいですか?", title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+								if (result == DialogResult.Yes)
+								{
+									// ブラウザで開く
+									System.Diagnostics.Process.Start("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_diff.zip");
+								}
 							}
-						} else
-                        {
-							string title = "更新通知:" + Settings.version;
-							DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\nダウンロードしますか?(ブラウザが開きます)", title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-							if (result == DialogResult.Yes)
+							else
 							{
-								// ブラウザで開く
-								System.Diagnostics.Process.Start("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_v" + response.Content.ReadAsStringAsync().Result + ".zip");
+								string title = "更新通知:" + Settings.version;
+								DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\nダウンロードしますか?(ブラウザが開きます)", title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+								if (result == DialogResult.Yes)
+								{
+									// ブラウザで開く
+									System.Diagnostics.Process.Start("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_v" + response.Content.ReadAsStringAsync().Result + ".zip");
+								}
 							}
+							MessageBox.Show("「このツールについて」の配布ページからでもダウンロードできます。", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
 						}
-						MessageBox.Show("「このツールについて」の配布ページからでもダウンロードできます。", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
-					} else if (click_btn)
-                    {
-						// 手動の更新確認
-						MessageBox.Show("新しいバージョンは見つかりませんでした。", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
-						update_notice.Text = "最新版を利用中です";
-						update_notice.ForeColor = System.Drawing.Color.Black;
-					} else
-                    {
-						update_notice.Text = "最新版を利用中です";
-						update_notice.ForeColor = System.Drawing.Color.Black;
+						else if (click_btn)
+						{
+							// 手動の更新確認
+							MessageBox.Show("新しいバージョンは見つかりませんでした。", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							update_notice.Text = "最新版を利用中です";
+							update_notice.ForeColor = System.Drawing.Color.Black;
+						}
+						else
+						{
+							update_notice.Text = "最新版を利用中です";
+							update_notice.ForeColor = System.Drawing.Color.Black;
+						}
 					}
 				}
-			}
-            catch (Exception)
-            {
-				update_notice.Text = "更新確認に失敗しました";
-				update_notice.ForeColor = System.Drawing.Color.Black;
+				catch (Exception)
+				{
+					update_notice.Text = "更新確認に失敗しました";
+					update_notice.ForeColor = System.Drawing.Color.Black;
 
-				if (click_btn)
-                {
-					MessageBox.Show("何らかの原因で確認/ダウンロードに失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					if (click_btn)
+					{
+						MessageBox.Show("何らかの原因で確認/ダウンロードに失敗しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
 				}
 			}
 		}
