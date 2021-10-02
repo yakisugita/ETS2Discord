@@ -465,7 +465,7 @@ namespace ETS2Discord
 							if (response_.Content.ReadAsStringAsync().Result == Settings.version)
 							{
 								string title = "更新通知:" + Settings.version;
-								DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\n差分のみダウンロードします。よろしいですか?", title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+								DialogResult result = MessageBox.Show("新しいバージョンが見つかりました : v" + response.Content.ReadAsStringAsync().Result + "\n変更があったファイルのみダウンロードします。よろしいですか?", title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 								if (result == DialogResult.Yes)
 								{
 									// ブラウザで開く
@@ -482,7 +482,7 @@ namespace ETS2Discord
 									System.Diagnostics.Process.Start("https://yakijake.net/versions/ETS2DRP/ETS2DiscordRichPresence_v" + response.Content.ReadAsStringAsync().Result + ".zip");
 								}
 							}
-							MessageBox.Show("「このツールについて」の配布ページからでもダウンロードできます。", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							MessageBox.Show("「このツールについて」→「配布ページ」からでもダウンロードできます。", "更新通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
 						}
 						else if (click_btn)
 						{

@@ -44,6 +44,10 @@ namespace ETS2Discord
 
         private void button_ok_Click(object sender, EventArgs e)
         {
+            if (!api_url.Text.Contains("api/ets2/telemetry"))
+            {
+                MessageBox.Show("API URLに間違って「HTML5 App URL」を入力しているかもしれません。", "警告?", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             DialogResult ini_result = MessageBox.Show("設定を上書き保存します。再起動なしで反映されます。", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             if (ini_result == DialogResult.OK)
             {
@@ -103,7 +107,7 @@ namespace ETS2Discord
             switch (customCombo.Name)
             {
                 case "custom_free_top":
-                    switch (customCombo.SelectedIndex)  
+                    switch (customCombo.SelectedIndex)
                     {
                         case 1:
                             add_text = "{truck}";
