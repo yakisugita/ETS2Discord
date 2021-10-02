@@ -562,7 +562,7 @@ namespace ETS2Discord
 				// エラーが起きてる行
 				StackTrace stacktrace = new StackTrace(1, true);
 				int errline = stacktrace.GetFrame(0).GetFileLineNumber();
-				System.IO.File.WriteAllText("./error.log", $"{dt.ToString("[MPCheckERR] yyyy/MM/dd HH:mm:ss:")}\n{err.Message}\nFile: {stacktrace.GetFrame(0).GetFileName()}, row : {errline}"); // 上書き
+				System.IO.File.WriteAllText("./error.log", $"{dt.ToString("[MPCheckERR] yyyy/MM/dd HH:mm:ss:")}\nMPTimer error\n{err.Message}\nFile: {stacktrace.GetFrame(0).GetFileName()}, row : {errline}"); // 上書き
 			}
 		}
 

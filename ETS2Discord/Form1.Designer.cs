@@ -150,12 +150,12 @@ namespace ETS2Discord
             // update_notice
             // 
             this.update_notice.AutoSize = true;
-            this.update_notice.ForeColor = System.Drawing.Color.Green;
+            this.update_notice.ForeColor = System.Drawing.Color.Black;
             this.update_notice.Location = new System.Drawing.Point(12, 90);
             this.update_notice.Name = "update_notice";
-            this.update_notice.Size = new System.Drawing.Size(224, 12);
+            this.update_notice.Size = new System.Drawing.Size(179, 12);
             this.update_notice.TabIndex = 3;
-            this.update_notice.Text = "更新があります インフォ→更新を確認でチェック";
+            this.update_notice.Text = "更新がある場合はここに表示されます";
             // 
             // Form1
             // 
