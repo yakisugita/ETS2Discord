@@ -63,11 +63,23 @@ namespace ETS2Discord
 			*/
 			if (Settings.game == "ATS")
             {
-				client = new DiscordRpcClient("872733914622459964");
+				if (Settings.is_login)
+                {
+					client = new DiscordRpcClient("894316307128922163");
+				} else
+                {
+					client = new DiscordRpcClient("872733914622459964");
+				}
 			}
 			else
             {
-				client = new DiscordRpcClient("826286647859347497");
+				if (Settings.is_login)
+                {
+					client = new DiscordRpcClient("894316307128922163");
+				} else
+                {
+					client = new DiscordRpcClient("826286647859347497");
+				}
 			}
 
 			//Set the logger
@@ -529,6 +541,10 @@ namespace ETS2Discord
 
 						if ((bool)response_json["response"]["online"])
 						{
+							if (Settings.is_login == false)
+                            {
+								Deinitialize();
+							}
 							Settings.is_login = true;
 							string servername = response_json["response"]["serverDetails"]["name"].ToString();
 							string id = response_json["response"]["p_id"].ToString();
@@ -550,6 +566,10 @@ namespace ETS2Discord
 						}
 						else
 						{
+							if (Settings.is_login == true)
+                            {
+								Deinitialize();
+                            }
 							Settings.is_login = false;
 						}
 					}
