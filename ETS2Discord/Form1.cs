@@ -442,7 +442,11 @@ namespace ETS2Discord
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-			if (Settings.X_button_move == "minimum")
+			if (e.CloseReason == CloseReason.WindowsShutDown)
+            {
+				// 終了
+            }
+			else if (Settings.X_button_move == "minimum")
             {
 				// フォームを最小サイズにする
 				this.WindowState = FormWindowState.Minimized;
