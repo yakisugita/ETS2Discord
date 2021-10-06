@@ -17,7 +17,7 @@ namespace ETS2Discord
 		{
 			InitializeComponent();
 			// バージョンチェック
-			Settings.version = "1.2.2";
+			Settings.version = "1.3";
 			VersionCheck(false);
 
 			string fileName = @"./ets2discord.ini";
