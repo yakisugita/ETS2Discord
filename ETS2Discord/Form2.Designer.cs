@@ -65,6 +65,8 @@ namespace ETS2Discord
             this.customText = new System.Windows.Forms.CheckBox();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
+            this.startupbutton = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage_normal.SuspendLayout();
             this.tabPage_job.SuspendLayout();
@@ -207,6 +209,7 @@ namespace ETS2Discord
             // 
             // tabPage_other
             // 
+            this.tabPage_other.Controls.Add(this.startupbutton);
             this.tabPage_other.Controls.Add(this.button1);
             this.tabPage_other.Controls.Add(this.label7);
             this.tabPage_other.Controls.Add(this.truckersmpid);
@@ -225,7 +228,7 @@ namespace ETS2Discord
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(174, 129);
+            this.button1.Location = new System.Drawing.Point(174, 110);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 9;
@@ -236,7 +239,7 @@ namespace ETS2Discord
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(5, 134);
+            this.label7.Location = new System.Drawing.Point(5, 115);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(87, 12);
             this.label7.TabIndex = 7;
@@ -244,7 +247,7 @@ namespace ETS2Discord
             // 
             // truckersmpid
             // 
-            this.truckersmpid.Location = new System.Drawing.Point(98, 132);
+            this.truckersmpid.Location = new System.Drawing.Point(98, 113);
             this.truckersmpid.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -260,7 +263,7 @@ namespace ETS2Discord
             // truckersmp
             // 
             this.truckersmp.AutoSize = true;
-            this.truckersmp.Location = new System.Drawing.Point(7, 115);
+            this.truckersmp.Location = new System.Drawing.Point(7, 96);
             this.truckersmp.Name = "truckersmp";
             this.truckersmp.Size = new System.Drawing.Size(299, 16);
             this.truckersmp.TabIndex = 5;
@@ -271,7 +274,7 @@ namespace ETS2Discord
             // exit_radioButton
             // 
             this.exit_radioButton.AutoSize = true;
-            this.exit_radioButton.Location = new System.Drawing.Point(7, 85);
+            this.exit_radioButton.Location = new System.Drawing.Point(126, 66);
             this.exit_radioButton.Name = "exit_radioButton";
             this.exit_radioButton.Size = new System.Drawing.Size(81, 16);
             this.exit_radioButton.TabIndex = 4;
@@ -479,6 +482,21 @@ namespace ETS2Discord
             this.button_ok.UseVisualStyleBackColor = true;
             this.button_ok.Click += new System.EventHandler(this.button_ok_Click);
             // 
+            // startupbutton
+            // 
+            this.startupbutton.Location = new System.Drawing.Point(7, 145);
+            this.startupbutton.Name = "startupbutton";
+            this.startupbutton.Size = new System.Drawing.Size(100, 23);
+            this.startupbutton.TabIndex = 10;
+            this.startupbutton.Text = "スタートアップ設定";
+            this.startupbutton.UseVisualStyleBackColor = true;
+            this.startupbutton.Click += new System.EventHandler(this.startupbutton_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "Ets2Telemetry.exe";
+            this.openFileDialog1.Title = "実行ファイルを選択 デフォ:Telemetry Serverフォルダ";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -542,5 +560,7 @@ namespace ETS2Discord
         private System.Windows.Forms.ComboBox custom_job_top;
         private System.Windows.Forms.ComboBox custom_free_bottom;
         private System.Windows.Forms.ComboBox custom_free_top;
+        private System.Windows.Forms.Button startupbutton;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

@@ -203,5 +203,38 @@ namespace ETS2Discord
             }
             customCombo.SelectedIndex = 0;
         }
+
+        private void startupbutton_Click(object sender, EventArgs e)
+        {
+            //本体をスタートアップに設定 コンピューター\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+            //Runキーを開く
+            Microsoft.Win32.RegistryKey regkey =
+                Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+                @"Software\Microsoft\Windows\CurrentVersion\Run", true);
+            //値の名前に製品名、値のデータに実行ファイルのパスを指定し、書き込む
+            regkey.SetValue(Application.ProductName, Application.ExecutablePath);
+            //閉じる
+            regkey.Close();
+
+            DialogResult startup = MessageBox.Show("登録しました。(現在のユーザーのみ)\nTelemetry Serverも登録しますか?", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (startup == DialogResult.Yes)
+            {
+                // ドキュメント
+                openFileDialog1.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    //Runキーを開く
+                    regkey =
+                        Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+                        @"Software\Microsoft\Windows\CurrentVersion\Run", true);
+                    //値の名前に製品名、値のデータに実行ファイルのパスを指定し、書き込む
+                    regkey.SetValue("Funbit.Ets.Telemetry.Server", openFileDialog1.FileName);
+                    //閉じる
+                    regkey.Close();
+
+                    MessageBox.Show("登録しました。", "通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
     }
 }
