@@ -42,6 +42,7 @@ namespace ETS2Discord
             this.job_details_combo = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage_other = new System.Windows.Forms.TabPage();
+            this.startupbutton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.truckersmpid = new System.Windows.Forms.NumericUpDown();
@@ -65,7 +66,6 @@ namespace ETS2Discord
             this.customText = new System.Windows.Forms.CheckBox();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
-            this.startupbutton = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage_normal.SuspendLayout();
@@ -225,6 +225,16 @@ namespace ETS2Discord
             this.tabPage_other.TabIndex = 2;
             this.tabPage_other.Text = "その他の設定";
             this.tabPage_other.UseVisualStyleBackColor = true;
+            // 
+            // startupbutton
+            // 
+            this.startupbutton.Location = new System.Drawing.Point(7, 145);
+            this.startupbutton.Name = "startupbutton";
+            this.startupbutton.Size = new System.Drawing.Size(140, 23);
+            this.startupbutton.TabIndex = 10;
+            this.startupbutton.Text = "スタートアップ登録/解除";
+            this.startupbutton.UseVisualStyleBackColor = true;
+            this.startupbutton.Click += new System.EventHandler(this.startupbutton_Click);
             // 
             // button1
             // 
@@ -482,20 +492,10 @@ namespace ETS2Discord
             this.button_ok.UseVisualStyleBackColor = true;
             this.button_ok.Click += new System.EventHandler(this.button_ok_Click);
             // 
-            // startupbutton
-            // 
-            this.startupbutton.Location = new System.Drawing.Point(7, 145);
-            this.startupbutton.Name = "startupbutton";
-            this.startupbutton.Size = new System.Drawing.Size(100, 23);
-            this.startupbutton.TabIndex = 10;
-            this.startupbutton.Text = "スタートアップ設定";
-            this.startupbutton.UseVisualStyleBackColor = true;
-            this.startupbutton.Click += new System.EventHandler(this.startupbutton_Click);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "Ets2Telemetry.exe";
-            this.openFileDialog1.Title = "実行ファイルを選択 デフォ:Telemetry Serverフォルダ";
+            this.openFileDialog1.Title = "実行ファイルを選択";
             // 
             // Form2
             // 

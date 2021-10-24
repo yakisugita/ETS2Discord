@@ -206,33 +206,46 @@ namespace ETS2Discord
 
         private void startupbutton_Click(object sender, EventArgs e)
         {
-            //本体をスタートアップに設定 コンピューター\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
-            //Runキーを開く
-            Microsoft.Win32.RegistryKey regkey =
-                Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
-                @"Software\Microsoft\Windows\CurrentVersion\Run", true);
-            //値の名前に製品名、値のデータに実行ファイルのパスを指定し、書き込む
-            regkey.SetValue(Application.ProductName, Application.ExecutablePath);
-            //閉じる
-            regkey.Close();
-
-            DialogResult startup = MessageBox.Show("登録しました。(現在のユーザーのみ)\nTelemetry Serverも登録しますか?", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (startup == DialogResult.Yes)
+            string stringValue = (string)Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", Application.ProductName, "default");
+            if (stringValue == "default")
             {
-                // ドキュメント
-                openFileDialog1.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    //Runキーを開く
-                    regkey =
-                        Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
-                        @"Software\Microsoft\Windows\CurrentVersion\Run", true);
-                    //値の名前に製品名、値のデータに実行ファイルのパスを指定し、書き込む
-                    regkey.SetValue("Funbit.Ets.Telemetry.Server", openFileDialog1.FileName);
-                    //閉じる
-                    regkey.Close();
+                //本体をスタートアップに設定 コンピューター\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+                Microsoft.Win32.Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", Application.ProductName, Application.ExecutablePath);
 
-                    MessageBox.Show("登録しました。", "通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult startup = MessageBox.Show("登録しました。(現在のユーザーのみ)\nTelemetry Serverも登録しますか?", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (startup == DialogResult.Yes)
+                {
+                    MessageBox.Show("Telemetry Serverの実行ファイルを選択してください。", "通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // ドキュメント
+                    openFileDialog1.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        Microsoft.Win32.Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "Funbit.Ets.Telemetry.Server", openFileDialog1.FileName);
+
+                        MessageBox.Show("登録しました。", "通知", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            } else
+            {
+                DialogResult startup = MessageBox.Show("すでに登録されているようです。解除しますか?", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (startup == DialogResult.Yes)
+                {
+                    Microsoft.Win32.RegistryKey regkey =
+                        Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+                    if (regkey == null)
+                    {
+                        MessageBox.Show("エラーが発生しました。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    // キーを削除
+                    regkey.DeleteValue(Application.ProductName, false);
+
+                    startup = MessageBox.Show("解除しました。Telemetry Serverも解除しますか?", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (startup == DialogResult.Yes)
+                    {
+                        regkey.DeleteValue("Funbit.Ets.Telemetry.Server", false);
+                    }
+                    regkey.Close();
                 }
             }
         }
