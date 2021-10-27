@@ -8,6 +8,8 @@ using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 
 namespace ETS2Discord
 {
@@ -17,17 +19,20 @@ namespace ETS2Discord
 		{
 			InitializeComponent();
 			// バージョンチェック
-			Settings.version = "1.3";
+			//Settings.version = "1.3";
+			Settings.version = Application.ProductVersion.Split('.')[0] + "." + Application.ProductVersion.Split('.')[1] + "." + Application.ProductVersion.Split('.')[2];
+			// exeがあるディレクトリ ※最後に/はつかない
+			Settings.current_dir = Directory.GetParent(Assembly.GetExecutingAssembly().Location).ToString();
 			VersionCheck(false);
 
-			string fileName = @"./ets2discord.ini";
+			string fileName = Settings.current_dir + @"/ets2discord.ini";
 			if (!System.IO.File.Exists(fileName))
 			{
 				// iniファイルが無かったら作成
 				DialogResult ini_result = MessageBox.Show("設定ファイルが見つかりません。\n新しく作成します。", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 				if (ini_result == DialogResult.OK)
 				{
-					System.IO.File.Create("./ets2discord.ini");
+					System.IO.File.Create(Settings.current_dir + "/ets2discord.ini");
 					// 終了する
 					Settings.X_button_move = "exit";
 					this.Close();
@@ -382,7 +387,7 @@ namespace ETS2Discord
 						else
 						{
 							// ゲームをやめた時だけ
-							if (status_label.Text == "ゲーム：実行中" && !System.IO.File.Exists("./noupdate"))
+							if (status_label.Text == "ゲーム：実行中" && !System.IO.File.Exists(Settings.current_dir + "/noupdate"))
                             {
 								try
 								{
@@ -422,7 +427,7 @@ namespace ETS2Discord
 				// エラーが起きてる行
 				StackTrace stacktrace = new StackTrace(1, true);
 				int errline = stacktrace.GetFrame(0).GetFileLineNumber();
-				System.IO.File.WriteAllText("./error.log", $"{dt.ToString("yyyy/MM/dd HH:mm:ss:")}\n{err.Message}\nFile: {stacktrace.GetFrame(0).GetFileName()}, row : {errline}"); // 上書き
+				System.IO.File.WriteAllText(Settings.current_dir + "/error.log", $"{dt.ToString("yyyy/MM/dd HH:mm:ss:")}\n{err.Message}\nFile: {stacktrace.GetFrame(0).GetFileName()}, row : {errline}"); // 上書き
 				status_label.Text = "データ取得/処理に失敗しました。\n以下を確認してください。\n\n・ETS2TelemetryServerは起動しているか\n・API URLは正しく入力できているか";
 				if (discordrpc)
 				{
@@ -465,7 +470,7 @@ namespace ETS2Discord
 		private async void VersionCheck(bool click_btn)
         {
 			// noupdateファイルがあれば勝手に更新確認しない 手動ならする
-			if (!System.IO.File.Exists("./noupdate") || click_btn)
+			if (!System.IO.File.Exists(Settings.current_dir + "/noupdate") || click_btn)
             {
 				try
 				{
@@ -586,7 +591,7 @@ namespace ETS2Discord
 				// エラーが起きてる行
 				StackTrace stacktrace = new StackTrace(1, true);
 				int errline = stacktrace.GetFrame(0).GetFileLineNumber();
-				System.IO.File.WriteAllText("./error.log", $"{dt.ToString("[MPCheckERR] yyyy/MM/dd HH:mm:ss:")}\nMPTimer error\n{err.Message}\nFile: {stacktrace.GetFrame(0).GetFileName()}, row : {errline}"); // 上書き
+				System.IO.File.WriteAllText(Settings.current_dir + "/error.log", $"{dt.ToString("[MPCheckERR] yyyy/MM/dd HH:mm:ss:")}\nMPTimer error\n{err.Message}\nFile: {stacktrace.GetFrame(0).GetFileName()}, row : {errline}"); // 上書き
 			}
 		}
 
@@ -688,6 +693,9 @@ namespace ETS2Discord
 		public static string custom_free_state { get; set; }
 		public static string custom_job_details { get; set; }
 		public static string custom_job_state { get; set; }
+
+		//
+		public static string current_dir { get; set; }
 	}
 }
 
