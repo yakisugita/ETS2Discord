@@ -7,7 +7,7 @@ namespace ETS2Discord
         public About()
         {
             InitializeComponent();
-            versionlabel.Text = "バージョン : v" + Settings.version;
+            versionlabel.Text = "バージョン : v" + Application.ProductVersion;
         }
 
         private void Link_Click(object sender, LinkLabelLinkClickedEventArgs e)

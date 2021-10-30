@@ -96,7 +96,8 @@ namespace ETS2Discord
             DialogResult result = MessageBox.Show("TMPにログインした状態で\nhttps://truckersmp.com/profile\nにアクセスしてください。OKを押すとページが開きます", "ヘルプ", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
-                System.Diagnostics.Process.Start("https://truckersmp.com/profile");
+                Form1 form1 = new Form1();
+                form1.openbrowser("https://truckersmp.com/profile");
             }
         }
 

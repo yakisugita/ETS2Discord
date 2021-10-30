@@ -45,6 +45,7 @@ namespace ETS2Discord
             this.status_label = new System.Windows.Forms.Label();
             this.mptimer = new System.Windows.Forms.Timer(this.components);
             this.update_notice = new System.Windows.Forms.Label();
+            this.openmanualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -102,7 +103,8 @@ namespace ETS2Discord
             // 
             this.infoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.VersionCheckToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.openmanualToolStripMenuItem});
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
             this.infoToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.infoToolStripMenuItem.Text = "インフォ";
@@ -110,14 +112,14 @@ namespace ETS2Discord
             // VersionCheckToolStripMenuItem
             // 
             this.VersionCheckToolStripMenuItem.Name = "VersionCheckToolStripMenuItem";
-            this.VersionCheckToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.VersionCheckToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.VersionCheckToolStripMenuItem.Text = "更新の確認";
             this.VersionCheckToolStripMenuItem.Click += new System.EventHandler(this.VersionCheckToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "このツールについて";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -157,6 +159,13 @@ namespace ETS2Discord
             this.update_notice.TabIndex = 3;
             this.update_notice.Text = "更新がある場合はここに表示されます";
             // 
+            // openmanualToolStripMenuItem
+            // 
+            this.openmanualToolStripMenuItem.Name = "openmanualToolStripMenuItem";
+            this.openmanualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openmanualToolStripMenuItem.Text = "オンラインマニュアル";
+            this.openmanualToolStripMenuItem.Click += new System.EventHandler(this.openmanualToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -194,6 +203,7 @@ namespace ETS2Discord
         private System.Windows.Forms.ToolStripMenuItem ShowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redisplayToolStripMenuItem;
         private System.Windows.Forms.Label update_notice;
+        private System.Windows.Forms.ToolStripMenuItem openmanualToolStripMenuItem;
     }
 }
 

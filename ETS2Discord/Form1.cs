@@ -607,6 +607,11 @@ namespace ETS2Discord
 			discordrpc = false;
         }
 
+		private void openmanualToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			openbrowser("https://yakijake.net/versions/ETS2DRP/ets2drpmanual.html");
+		}
+
 		public void getSettings()
         {
 			var ini = new IniFile(System.IO.Directory.GetCurrentDirectory() + @"\ets2discord.ini");
@@ -629,6 +634,11 @@ namespace ETS2Discord
 			Settings.custom_free_state = ini.GetString("custom", "free_state", "");
 			Settings.custom_job_details = ini.GetString("custom", "job_details", "");
 			Settings.custom_job_state = ini.GetString("custom", "job_state", "");
+		}
+
+		public void openbrowser(String open_url)
+        {
+			System.Diagnostics.Process.Start(open_url);
 		}
     }
 

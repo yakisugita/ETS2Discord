@@ -50,10 +50,10 @@ namespace ETS2Discord
             this.DLlink.AutoSize = true;
             this.DLlink.Location = new System.Drawing.Point(12, 39);
             this.DLlink.Name = "DLlink";
-            this.DLlink.Size = new System.Drawing.Size(173, 12);
+            this.DLlink.Size = new System.Drawing.Size(59, 12);
             this.DLlink.TabIndex = 1;
             this.DLlink.TabStop = true;
-            this.DLlink.Text = "配布ページ(各種リンクや説明書等)";
+            this.DLlink.Text = "配布ページ";
             this.DLlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_Click);
             // 
             // Twitterlink
