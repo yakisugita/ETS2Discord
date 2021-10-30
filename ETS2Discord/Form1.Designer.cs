@@ -40,12 +40,12 @@ namespace ETS2Discord
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VersionCheckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openmanualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.status_label = new System.Windows.Forms.Label();
             this.mptimer = new System.Windows.Forms.Timer(this.components);
             this.update_notice = new System.Windows.Forms.Label();
-            this.openmanualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +68,7 @@ namespace ETS2Discord
             // 
             // ShowToolStripMenuItem
             // 
+            this.ShowToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ShowToolStripMenuItem.Image")));
             this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
             this.ShowToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.ShowToolStripMenuItem.Text = "表示";
@@ -75,6 +76,7 @@ namespace ETS2Discord
             // 
             // ExitToolStripMenuItem
             // 
+            this.ExitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ExitToolStripMenuItem.Image")));
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
             this.ExitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.ExitToolStripMenuItem.Text = "終了";
@@ -111,6 +113,7 @@ namespace ETS2Discord
             // 
             // VersionCheckToolStripMenuItem
             // 
+            this.VersionCheckToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("VersionCheckToolStripMenuItem.Image")));
             this.VersionCheckToolStripMenuItem.Name = "VersionCheckToolStripMenuItem";
             this.VersionCheckToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.VersionCheckToolStripMenuItem.Text = "更新の確認";
@@ -118,10 +121,19 @@ namespace ETS2Discord
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutToolStripMenuItem.Image")));
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "このツールについて";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // openmanualToolStripMenuItem
+            // 
+            this.openmanualToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openmanualToolStripMenuItem.Image")));
+            this.openmanualToolStripMenuItem.Name = "openmanualToolStripMenuItem";
+            this.openmanualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openmanualToolStripMenuItem.Text = "オンラインマニュアル";
+            this.openmanualToolStripMenuItem.Click += new System.EventHandler(this.openmanualToolStripMenuItem_Click);
             // 
             // redisplayToolStripMenuItem
             // 
@@ -158,13 +170,6 @@ namespace ETS2Discord
             this.update_notice.Size = new System.Drawing.Size(179, 12);
             this.update_notice.TabIndex = 3;
             this.update_notice.Text = "更新がある場合はここに表示されます";
-            // 
-            // openmanualToolStripMenuItem
-            // 
-            this.openmanualToolStripMenuItem.Name = "openmanualToolStripMenuItem";
-            this.openmanualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.openmanualToolStripMenuItem.Text = "オンラインマニュアル";
-            this.openmanualToolStripMenuItem.Click += new System.EventHandler(this.openmanualToolStripMenuItem_Click);
             // 
             // Form1
             // 
