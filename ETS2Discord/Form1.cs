@@ -636,11 +636,17 @@ namespace ETS2Discord
 			Settings.custom_job_state = ini.GetString("custom", "job_state", "");
 		}
 
-		public void openbrowser(String open_url)
+        private void feedbackToolStripMenuItem_Click(object sender, EventArgs e)
         {
+			Form_feedback form_Feedback = new Form_feedback();
+			form_Feedback.Show();
+		}
+
+		public void openbrowser(String open_url)
+		{
 			System.Diagnostics.Process.Start(open_url);
 		}
-    }
+	}
 
 
 

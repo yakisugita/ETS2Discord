@@ -41,6 +41,7 @@ namespace ETS2Discord
             this.VersionCheckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openmanualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.feedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.status_label = new System.Windows.Forms.Label();
@@ -106,7 +107,8 @@ namespace ETS2Discord
             this.infoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.VersionCheckToolStripMenuItem,
             this.aboutToolStripMenuItem,
-            this.openmanualToolStripMenuItem});
+            this.openmanualToolStripMenuItem,
+            this.feedbackToolStripMenuItem});
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
             this.infoToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.infoToolStripMenuItem.Text = "インフォ";
@@ -134,6 +136,14 @@ namespace ETS2Discord
             this.openmanualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openmanualToolStripMenuItem.Text = "オンラインマニュアル";
             this.openmanualToolStripMenuItem.Click += new System.EventHandler(this.openmanualToolStripMenuItem_Click);
+            // 
+            // feedbackToolStripMenuItem
+            // 
+            this.feedbackToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("feedbackToolStripMenuItem.Image")));
+            this.feedbackToolStripMenuItem.Name = "feedbackToolStripMenuItem";
+            this.feedbackToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.feedbackToolStripMenuItem.Text = "フィードバック・意見";
+            this.feedbackToolStripMenuItem.Click += new System.EventHandler(this.feedbackToolStripMenuItem_Click);
             // 
             // redisplayToolStripMenuItem
             // 
@@ -209,6 +219,7 @@ namespace ETS2Discord
         private System.Windows.Forms.ToolStripMenuItem redisplayToolStripMenuItem;
         private System.Windows.Forms.Label update_notice;
         private System.Windows.Forms.ToolStripMenuItem openmanualToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem feedbackToolStripMenuItem;
     }
 }
 
