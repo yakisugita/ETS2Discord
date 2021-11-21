@@ -61,10 +61,10 @@ namespace ETS2Discord
             this.Twitterlink.AutoSize = true;
             this.Twitterlink.Location = new System.Drawing.Point(12, 99);
             this.Twitterlink.Name = "Twitterlink";
-            this.Twitterlink.Size = new System.Drawing.Size(77, 12);
+            this.Twitterlink.Size = new System.Drawing.Size(151, 12);
             this.Twitterlink.TabIndex = 2;
             this.Twitterlink.TabStop = true;
-            this.Twitterlink.Text = "制作者Twitter";
+            this.Twitterlink.Text = "制作者Twitter (焼きすぎた鮭)";
             this.Twitterlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_Click);
             // 
             // GFormlink
