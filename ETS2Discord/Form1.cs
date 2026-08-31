@@ -142,7 +142,7 @@ namespace ETS2Discord
 
 		private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Form2 form2 = new Form2();
+			Form2 form2 = new Form2(this);
 			form2.Show();
 		}
 
