@@ -19,7 +19,7 @@ namespace ETS2Discord
 		{
 			InitializeComponent();
 
-			new Form_telemetrytest().Show();
+			//new Form_telemetrytest().Show();
 
 			// バージョンチェック
 			//Settings.version = "1.3";
