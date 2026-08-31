@@ -18,6 +18,9 @@ namespace ETS2Discord
         public Form1()
 		{
 			InitializeComponent();
+
+			//new Form_telemetrytest().Show();
+
 			// バージョンチェック
 			//Settings.version = "1.3";
 			Settings.version = Application.ProductVersion.Split('.')[0] + "." + Application.ProductVersion.Split('.')[1] + "." + Application.ProductVersion.Split('.')[2];
@@ -139,7 +142,7 @@ namespace ETS2Discord
 
 		private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Form2 form2 = new Form2();
+			Form2 form2 = new Form2(this);
 			form2.Show();
 		}
 

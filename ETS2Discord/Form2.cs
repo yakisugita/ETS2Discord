@@ -5,8 +5,10 @@ namespace ETS2Discord
 {
     public partial class Form2 : Form
     {
-        public Form2()
+        private static Form1 _form1Instance;
+        public Form2(Form1 form_parent)
         {
+            _form1Instance = form_parent;
             InitializeComponent();
             // 増減ボタン非表示
             truckersmpid.Controls[0].Visible = false;
@@ -74,9 +76,12 @@ namespace ETS2Discord
                 ini.WriteString("custom", "job_details", custom_job_details.Text);
                 ini.WriteString("custom", "job_state", custom_job_state.Text);
 
-                // Form1のgetSettings呼び出し
-                Form1 form1 = new Form1();
-                form1.getSettings();
+                //Form1のgetSettings呼び出し
+                //ParentForm.Close();
+                //_form1Instance.Close();
+                _form1Instance.getSettings();
+                //Form1 form1 = new Form1();
+                //form1.getSettings();
                 this.Close();
             }
         }
